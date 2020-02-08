@@ -18,7 +18,7 @@
                 </div>
                 <div class="media-body">
                     <h1 class="counter">23,563</h1>
-                    <span>Application submit</span>
+                    <span>{{ __('Project posts') }}</span>
                 </div>
             </div><!-- /.fun-fact -->									
         </div>
@@ -29,7 +29,7 @@
                 </div>
                 <div class="media-body">
                     <h1 class="counter">27</h1>
-                    <span>Call for interview</span>
+                    <span>{{ __('Matches') }}</span>
                 </div>
             </div><!-- /.fun-fact -->									
         </div>
@@ -39,15 +39,15 @@
 <div class="section resume-last-updated">
     <span class="icon pull-left"><img src="{{ url('themes/frontpage/images/icons/1.png') }}" alt="Icon" class="img-fluid"></span>
     <div class="updated-info">
-        <span class="pull-left">Profile last updated on</span>
-        <span class="pull-right">24/4/2017</span>
+        <span class="pull-left">{{ __('Profile last updated on') }}</span>
+        <span class="pull-right">{!! $user->client ? \Carbon\Carbon::parse($user->client->updated_at)->format('Y/d/m'): __('Never') !!}</span>
     </div>
 </div><!-- /.resume-last-updated -->
 
 <div class="section display-information">
     <div class="title title-after">
         <div class="icon"><img src="{{ url('themes/frontpage/images/icons/2.png') }}" alt="Icon" class="img-fluid"></div> 
-        <span>Your display information</span>
+        <span>{{ __('Your display information') }}</span>
     </div>
 
     <div class="change-photo">
@@ -57,18 +57,15 @@
         <div class="upload-photo">
             <label class="btn btn-primary" for="upload-photo">
                 <input type="file" id="upload-photo">
-                Change Photo
+                {{ __('Change Photo') }}
             </label>
             <span class="max-size">Max 20 MB</span>
         </div>
     </div>
     <ul class="tr-list account-details">
-        <li>Compnay Name<span>Google Inc</span></li>
-        <li>Address<span>San Francisco, CA, US</span></li>
-        <li>Phone Number<span>+0123456789</span></li>
-        <li>Email Id<span><a href="#">jhondoe@gmail.com</a></span></li>
-        <li>Industry Expertise<span>IT Industry</span></li>
-        <li>Compnay Size<span>2,000</span></li>
+        <li>{{ __('Company Name') }}<span>{!! $user->client ? $user->client->co_name: __('No company name') !!}</span></li>
+        <li>{{ __('Phone Number') }}<span>{!! $user->client ? $user->client->co_phone: __('No company phone number') !!}</span></li>
+        <li>{{ __('Email Id') }}<span><a href="#">{!! $user->client ? $user->client->co_email: $user->email !!}</a></span></li>
     </ul>								
 </div><!-- /.display-information -->
 <div class="section">

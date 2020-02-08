@@ -13,7 +13,7 @@
                     <div class="tr-sidebar">
                         <ul class="nav nav-tabs profile-tabs section" role="tablist">
                             <li role="presentation"><a class="active" href="#account-info" aria-controls="account-info" role="tab" data-toggle="tab"><i class="fa fa-life-ring" aria-hidden="true"></i> {{ __('Account Info') }}</a></li>
-                            <li role="presentation"><a href="#company" aria-controls="company" role="tab" data-toggle="tab"><span><i class="fa fa-building" aria-hidden="true"></i></span> {{ __('Company profile') }}</a></li>
+                            <li role="presentation"><a href="#company" aria-controls="company" role="tab" data-toggle="tab"><span><i class="fa fa-building" aria-hidden="true"></i></span> {{ __('Company info') }}</a></li>
                             <li role="presentation"><a href="#edit-company" aria-controls="edit-company" role="tab" data-toggle="tab"><span><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span> {{ __('Edit company profile') }}</a></li>
                             <li role="presentation"><a href="#projects" aria-controls="projects" role="tab" data-toggle="tab"><span><i class="fa fa-language" aria-hidden="true"></i></span> {{ __('Open projects') }}</a></li>
                             <li role="presentation"><a href="#archived" aria-controls="archived" role="tab" data-toggle="tab"><span><i class="fa fa-clone" aria-hidden="true"></i></span> {{ __('Archived projects') }}</a></li>
