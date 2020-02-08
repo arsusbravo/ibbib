@@ -13,7 +13,7 @@
 @section('content')
 <div class="subheader">
     <h1 class="subheader-title">
-        <i class='subheader-icon fal fa-desktop'></i> Dashboardd <span class='fw-300'>{{ \Auth::user()->role->name }}</span> <sup class='badge badge-primary fw-500'>Welcome!</sup>
+        <i class='subheader-icon fal fa-desktop'></i> Dashboard <span class='fw-300'>{{ \Auth::user()->role->name }}</span> <sup class='badge badge-primary fw-500'>Welcome!</sup>
         <small>
             {{ __('You can start managing the site') }}
         </small>
