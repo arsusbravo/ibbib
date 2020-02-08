@@ -1,0 +1,86 @@
+<ul class="tr-list resume-info">
+    @if ($user->crew->resume || is_null($user->crew->resume) && \Auth::user()->role->slug == 'crew')
+        <li class="career-objective media">
+            <div class="icon">
+                <i class="fa fa-black-tie" aria-hidden="true"></i>
+            </div>  
+            <div class="media-body">
+                <span class="tr-title">{!! $user->crew->objective ? nl2br($user->crew->objective): __('Your resume') !!}</span>
+                {!! $user->crew->resume ? nl2br($user->crew->resume): '<p class="text-warning">'.__('You have empty resume. Please update your resume!').'</p>' !!}
+            </div>
+        </li><!-- /.certificates -->
+    @endif
+    @if ($user->crew->certificates->count() || !$user->crew->certificates->count() && \Auth::user()->role->slug == 'crew')
+        <li class="education-background media">
+            <div class="icon">
+                <i class="fa fa-briefcase" aria-hidden="true"></i>
+            </div>
+            <div class="media-body">
+                <span class="tr-title">{{ __('Translation certificates') }}</span>
+                @if (!$user->crew->certificates->count())
+                    <p class="text-warning">{{ __('You have no certificate') }}</p>
+                @else
+                    <ul class="tr-list">
+                        @foreach ($user->crew->certificates as $cert)
+                            <li>
+                                <span>{!! $cert->title !!}</span>
+                                <ul class="tr-list">
+                                    <li>Year issued: {!! $cert->issued !!}</li>
+                                    <li>Translation: {!! $cert->language_to ? $cert->languageFrom->name.' - '.$cert->languageTo->name: $cert->languageFrom->name !!}</li>
+                                </ul>
+                                @if ($cert->description)
+                                    <p>{!! nl2br($cert->description) !!}</p>
+                                @endif
+                                
+                            </li>
+                        @endforeach
+                    </ul>
+                @endif
+            </div>
+        </li><!-- /.qualification -->
+    @endif
+    <li class="language-proficiency media">
+        <div class="icon">
+            <i class="fa fa-language" aria-hidden="true"></i>
+        </div>
+        <div class="media-body">
+            <span class="tr-title">{{ __('Translation Proficiency') }}:</span>
+            @if ($user->crew->skills->count())
+                <ul class="tr-list">
+                    @foreach ($user->crew->skills as $skill)
+                        <li>
+                            <span>{{ $skill->languageSkill->translateFrom->name }} - {{ $skill->languageSkill->translateTo->name }}</span>
+                            <ul class="tr-list rating">
+                                @for($s=1; $s<=5; $s++)
+                                    @if ($s <= $skill->pivot->level)
+                                        <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                    @else
+                                        <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
+                                    @endif
+                                @endfor
+                            </ul>
+                        </li>
+                    @endforeach
+                </ul>
+            @else
+                <p class="text-warning">{{ __('You have no translation skill') }}</p>
+            @endif
+        </div>
+    </li>
+    @if ($user->crew->additional_info || is_null($user->crew->additional_info) && \Auth::user()->role->slug == 'crew')
+        <li class="personal-deatils media">
+            <div class="icon">
+                <i class="fa fa-hand-peace-o" aria-hidden="true"></i>
+            </div>
+            <div class="media-body">
+                <span class="tr-title">{{ __('Additional information') }}</span>
+                {!! !is_null($user->crew->additional_info) ? nl2br($user->crew->additional_info): '<p class="text-warning">'. __('No additional information') .'</p>' !!}
+            </div>
+        </li>
+    @else
+        <p class="text-warning">{{ __('No other information') }}</p>
+    @endif
+</ul>
+<div class="buttons pull-right">
+    <a href="#edit-resume" aria-controls="edit-resume" role="tab" data-toggle="tab" class="btn btn-primary">{{ __('Update Your Resume') }}</a>
+</div>		
