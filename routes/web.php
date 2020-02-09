@@ -22,6 +22,7 @@ Route::group(['prefix' => 'user',  'middleware' => ['crew']], function() {
 });
 Route::group(['prefix' => 'client',  'middleware' => ['customer']], function() {
     Route::post('/account',                             'CustomerController@update');
+    Route::post('/project',                             'CustomerController@projectStore');
 
     Route::get('/',                                     'CustomerController@index');
     Route::get('/account',                              'CustomerController@account');

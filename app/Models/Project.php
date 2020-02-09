@@ -36,4 +36,12 @@ class Project extends Model
     {
         return $this->belongsToMany('App\Models\Category', 'projects_categories', 'project_id', 'category_id');
     }
+
+    /**
+     * Get the the bookmarked by.
+     */
+    public function bookmarked()
+    {
+        return $this->belongsToMany('App\Models\Project', 'crews_bookmarks', 'project_id', 'crew_id');
+    }
 }

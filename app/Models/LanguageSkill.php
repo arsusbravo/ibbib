@@ -32,7 +32,7 @@ class LanguageSkill extends Model
     /**
      * language skills.
      */
-    public function skills()
+    public function skill()
     {
         return $this->hasOne('App\Models\Skill', 'language_skill_id');
     }

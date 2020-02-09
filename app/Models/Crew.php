@@ -52,4 +52,20 @@ class Crew extends Model
     {
         return $this->belongsToMany('App\Models\Category', 'crews_categories', 'crew_id', 'category_id');
     }
+
+    /**
+     * Get the the bookmarked by.
+     */
+    public function bookmarked()
+    {
+        return $this->belongsToMany('App\Models\Customer', 'customers_bookmarks', 'crew_id', 'customer_id');
+    }
+
+    /**
+     * Get the the bookmarks.
+     */
+    public function bookmarks()
+    {
+        return $this->belongsToMany('App\Models\Project', 'crews_bookmarks', 'crew_id', 'project_id');
+    }
 }
