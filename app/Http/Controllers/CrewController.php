@@ -50,8 +50,8 @@ class CrewController extends Controller
         if(!$project->published){
             return redirect()->back()->with('error_msg', __('This project is not for public'));
         }
-        if($today->lt(\Carbon\Carbon::parse($project->deadline))){
-            return redirect()->back()->with('error_msg', __('This project has been removed'));
+        if($today->gt(\Carbon\Carbon::parse($project->deadline))){
+            return redirect()->back()->with('error_msg', __('This project has met the deadline'));
         }
         return view('user.job-details', [
             'project' => $project,

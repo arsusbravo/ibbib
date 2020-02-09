@@ -6,7 +6,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-6 tr-title">
-                                <a href="{{('project/'.$project->id)}}">{!! $project->title !!}</a>
+                                <a href="{{ url(\Request::segment(1).'/project/'.$project->id) }}">{!! $project->title !!}</a>
                             </div>
                             <div class="col-6 text-right">
                                 <small class="text-muted">{{ __('Deadline') }} : {!! \Carbon\Carbon::parse($project->deadline)->format('m/d/Y') !!}</small>

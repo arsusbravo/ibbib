@@ -1,14 +1,32 @@
 
 @extends('layouts.front')
 
-@section('content')
-    <div class="breadcrumb-info text-center">
-        <div class="page-title mt-5">
-            <h1>{{ __('Your project') }}</h1>
-            <p>{{ $project->title }}</p>
-        </div>
+@section('content-top')
+    <div class="tr-breadcrumb bg-image section-before">
+        <div class="container">
+            <div class="breadcrumb-info text-center">
+                <div class="breadcrumb-logo">
+                    <img src="images/others/company-logo.png" alt="Logo" class="img-fluid">
+                </div>
+                <div class="page-title">
+                    <h1>{!! $project->title !!}</h1>
+                </div>
+                <ul class="tr-list job-meta list-inline">
+                    <li><i class="fa fa-language" aria-hidden="true"></i>{{ $project->skill->languageSkill->translateFrom->name }} to {{ $project->skill->languageSkill->translateTo->name }}</li>
+                    <li><i class="fa fa-hourglass-start" aria-hidden="true"></i>Application Deadline : {{ \Carbon\Carbon::parse($project->deadline)->format('M d, Y') }}</li>
+                </ul>	
+                <div class="buttons">
+                    <a href="#" class="btn btn-primary"><i class="fa fa-briefcase" aria-hidden="true"></i>Apply For This Job</a>
+                    <a href="#" class="btn button-bookmark"><i class="fa fa-bookmark" aria-hidden="true"></i>Bookmark</a>
+                    <span class="btn button-share"><i class="fa fa-share-alt" aria-hidden="true"></i>Share <span><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></span></span>
+                </div>		
+            </div>
+        </div><!-- /.container -->
     </div>
-    <div class="job-details">
+@endsection
+
+@section('content')
+    <div class="job-details section-padding">
         <div class="container">
             @include('front.project-detail', ['project'=>$project])	
         </div><!-- /.container -->
