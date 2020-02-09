@@ -28,4 +28,12 @@ class Customer extends Model
     {
         return $this->hasMany('App\Models\Projects');
     }
+
+    /**
+     * Get country.
+     */
+    public function location()
+    {
+        return $this->belongsTo('App\Models\Country', 'country_id');
+    }
 }

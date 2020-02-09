@@ -55,7 +55,7 @@
         </header><!-- /.tr-header -->
     
         @yield('content-top')	
-    
+        @include('front.includes.alerts')
         @yield('content')
     
         @include('front.includes.footer')

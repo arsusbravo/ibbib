@@ -30,8 +30,10 @@ class CrewController extends Controller
     public function account(){
         $user = \Auth::user();
         $languages = \App\Models\Language::whereActive(1)->get();
+        $countries = \App\Models\Country::all();
         return view('user.settings', [
             'user' => $user,
+            'countries' => $countries,
             'languages' => $languages,
         ]);
     }

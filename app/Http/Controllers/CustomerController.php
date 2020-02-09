@@ -29,8 +29,10 @@ class CustomerController extends Controller
 
     public function account(){
         $user = \Auth::user();
+        $projects = $user->client ? $user->client->projects: null;
         return view('client.settings', [
             'user' => $user,
+            'projects' => $projects,
         ]);
     }
 }

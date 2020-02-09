@@ -22,19 +22,11 @@ class Project extends Model
     }
 
     /**
-     * Get the files.
-     */
-    public function files()
-    {
-        return $this->hasMany('App\Models\ProjectFile');
-    }
-
-    /**
      * Get skills.
      */
-    public function skills()
+    public function skill()
     {
-        return $this->belongsToMany('App\Models\Skill', 'projects_skills', 'project_id', 'skill_id');
+        return $this->belongsTo('App\Models\Skill', 'skill_id');
     }
 
     /**

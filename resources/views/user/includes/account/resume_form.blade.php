@@ -1,4 +1,4 @@
-<form method="POST" action="{{ url('account') }}">
+<form method="POST" action="{{ url('user/account') }}">
     @csrf
     <ul class="tr-list resume-info">
         <li class="career-objective">
@@ -11,7 +11,63 @@
                 <span class="tr-title">{{ __('Motivation') }}</span>
                 <textarea class="form-control" rows="10" placeholder="{{ __('Fill in your marketing words') }}">{!! $user->crew->resume ? $user->crew->resume: '' !!}</textarea>
             </div>
-        </li><!-- /.career-objective -->
+        </li>
+        <li class="personal-deatils code-edit-small">
+            <div class="icon">
+                <i class="fa fa-user-secret" aria-hidden="true"></i>
+            </div>
+            <div class="media-body">
+                <span class="tr-title">{{ __('Personal Details') }}</span>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label>{{ __('Display Name') }}<span class="pull-right">:</span> </label>
+                    </div>
+                    <div class="col-sm-8">
+                        <input class="form-control" name="name" value="{{ $user->name }}" required>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-sm-4">
+                        <label>{{ __('Phone number') }}<span class="pull-right">:</span> </label>
+                    </div>
+                    <div class="col-sm-8">
+                        <input class="form-control" name="phone" value="{{ $user->crew->co_phone }}">
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-sm-4">
+                        <label>{{ __('Country/Location') }}<span class="pull-right">:</span> </label>
+                    </div>
+                    <div class="col-sm-8">
+                        <select class="form-control" name="country_id">
+                            <option value="0">{{ __('Choose a country') }}</option>
+                            @foreach ($countries as $country)
+                                <option value="{{ $country->id }}">{{ $country->country_name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-sm-4">
+                        <label>{{ __('Standard rate') }}<span class="pull-right">:</span> </label>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text" id="basic-addon1">&#36;</span>
+                            </div>
+                            <input class="form-control" name="standard_rates" value="{{ $user->crew->standard_rates }}">
+                          </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <select class="form-control" name="unit_rate">
+                            <option value="word"{!! $user->crew->unit_rate == 'word' ? ' selected="selected"': null !!}>/ {{ __('word') }}</option>
+                            <option value="hour"{!! $user->crew->unit_rate == 'hour' ? ' selected="selected"': null !!}>/ {{ __('hour') }}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </li>
         <li class="work-history">
             <div class="icon">
                 <i class="fa fa-briefcase" aria-hidden="true"></i>
@@ -111,7 +167,7 @@
         </li><!-- /.personal-deatils -->				
     </ul>
     <div class="buttons pull-right">
-        <a href="#resume" class="btn button-cancle">{{ __('Cancel') }}</a>
+        <a href="#resume" aria-controls="resume" role="tab" data-toggle="tab" class="btn button-cancle">{{ __('Cancel') }}</a>
         <button type="submit" class="btn btn-primary">{{ __('Update Your Resume') }}</button>
     </div>	
 </form>

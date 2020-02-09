@@ -28,4 +28,12 @@ class Language extends Model
     {
         return $this->hasMany('App\Models\LanguageSkill', 'to');
     }
+
+    /**
+     * Get country.
+     */
+    public function flag()
+    {
+        return $this->belongsTo('App\Models\Country', 'country_id');
+    }
 }

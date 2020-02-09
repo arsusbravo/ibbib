@@ -22,6 +22,14 @@ class Crew extends Model
     }
 
     /**
+     * Get country.
+     */
+    public function location()
+    {
+        return $this->belongsTo('App\Models\Country', 'country_id');
+    }
+
+    /**
      * Get the the skills.
      */
     public function skills()

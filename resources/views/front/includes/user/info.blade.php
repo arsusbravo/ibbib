@@ -66,7 +66,9 @@
         <li>{{ __('Display Name') }}<span>{{ $user->name }}</span></li>
         <li>{{ __('Company name') }}<span {!! !$user->crew->co_name ? 'class="text-warning"': '' !!}>{!! $user->crew->co_name ? $user->crew->co_name: __('No company') !!}</span></li>
         <li>{{ __('Phone Number') }}<span {!! !$user->crew->co_phone ? 'class="text-warning"': '' !!}> {!! $user->crew->co_phone ? $user->crew->co_phone: __('No phone number') !!}</span></li>
-        <li>{{ __('Email') }}<span><a href="#">{!! $user->email !!}</a></span></li>
+        <li>{{ __('Location/Nationality') }}<span {!! !$user->crew->location ? 'class="text-warning"': '' !!}> {!! $user->crew->location ? $user->crew->location->country_name: __('No location') !!}</span></li>
+        <li>{{ __('Email') }}<span>{!! $user->email !!}</span></li>
+        <li>{{ __('Price') }}<span>&#36; {!! $user->standard_rates ? $user->crew->standard_rates.' / '. $user->crew->unit_rate: 0.00 !!}</span></li>
     </ul>								
 </div><!-- /.display-information -->
 <div class="section">
@@ -82,5 +84,5 @@
         <li><i class="fa fa-dribbble"></i><span class="media-body"><a href="#">https://www.dribbble.com/jhondoe</a></span></li>
         <li><i class="fa fa-behance"></i><span class="media-body"><a href="#">https://www.behance.com/jhondoe</a></span></li>
         <li><i class="fa fa-globe"></i><span class="media-body"><a href="#">https://www.globe.com/jhondoe</a></span></li>
-    </ul>						
+    </ul>
 </div>
