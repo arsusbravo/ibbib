@@ -15,11 +15,11 @@
                         <div class="company-logo row">
                             <div class="col-6">
                                 <img src="{{ url('themes/frontpage/images/flags/md/'. strtoupper($project->skill->languageSkill->translateFrom->code) .'.png') }}" alt="images" class="img-fluid">
-                                <span>{{ $project->skill->languageSkill->translateFrom->name }}</span>
+                                <strong>{{ $project->skill->languageSkill->translateFrom->name }}</strong>
                             </div>
                             <div class="col-6">
                                 <img src="{{ url('themes/frontpage/images/flags/md/'. strtoupper($project->skill->languageSkill->translateTo->code).'.png') }}" alt="images" class="img-fluid">
-                                <span>{{ $project->skill->languageSkill->translateTo->name }}</span>
+                                <strong>{{ $project->skill->languageSkill->translateTo->name }}</strong>
                             </div>
                         </div>
                     </div>

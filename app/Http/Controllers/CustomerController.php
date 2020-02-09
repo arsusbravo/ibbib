@@ -44,6 +44,21 @@ class CustomerController extends Controller
         ]);
     }
 
+    public function project($id){
+        $user = \Auth::user();
+        $project = Project::find($id);
+        if(!$project){
+            return redirect('client/account')->with('error_msg', __('No such project'));
+        }
+        if($project->customer_id != \Auth::user()->client->id){
+            return redirect('client/account')->with('error_msg', __('You have no access to this project'));
+        }
+        return view('client.project', [
+            'user' => $user,
+            'project' => $project,
+        ]);
+    }
+
     public function projectStore(Request $request){
         $input = $request->all();
         
