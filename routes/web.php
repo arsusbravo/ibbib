@@ -19,7 +19,6 @@ Route::group(['prefix' => 'user',  'middleware' => ['crew']], function() {
 
     Route::get('/',                                     'CrewController@index');
     Route::get('/account',                              'CrewController@account');
-    Route::get('/projects',                             'CrewController@projects');
     Route::get('/project/{id}',                         'CrewController@project');
 });
 Route::group(['prefix' => 'client',  'middleware' => ['customer']], function() {

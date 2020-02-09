@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Project;
 
 class CrewController extends Controller
 {
@@ -20,8 +21,10 @@ class CrewController extends Controller
     {
         $user = \Auth::user();
         $hasResume = !$user->crew->resume ? false: true;
+        $projects = Project::where('published', 1)->whereNull('deleted')->where('deadline', '>', \Carbon\Carbon::today())->get();
         return view('user.jobs', [
             'user' => $user,
+            'projects' => $projects,
             'hasResume' => $hasResume,
         ]);
         
@@ -38,24 +41,17 @@ class CrewController extends Controller
         ]);
     }
 
-    public function projects(){
-        $projects = Project::where('published', 1)->whereNull('deleted')->where('deadline', '<', \Carbon\Carbon::today())->get();
-        return view('user.jobs', [
-            'projects' => $projects,
-        ]);
-    }
-
     public function project($id){
         $project = Project::find($id);
         $today = \Carbon\Carbon::today();
         if($project->deleted){
-            return redirect()->back()->with('error_msg', __('This project has been removed'))
+            return redirect()->back()->with('error_msg', __('This project has been removed'));
         }
         if(!$project->published){
-            return redirect()->back()->with('error_msg', __('This project is not for public'))
+            return redirect()->back()->with('error_msg', __('This project is not for public'));
         }
-        if($today->lt(\Carbon\Carbon::parse($project->deadline)){
-            return redirect()->back()->with('error_msg', __('This project has been removed'))
+        if($today->lt(\Carbon\Carbon::parse($project->deadline))){
+            return redirect()->back()->with('error_msg', __('This project has been removed'));
         }
         return view('user.job-details', [
             'project' => $project,
