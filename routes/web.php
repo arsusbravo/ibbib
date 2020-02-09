@@ -19,6 +19,8 @@ Route::group(['prefix' => 'user',  'middleware' => ['crew']], function() {
 
     Route::get('/',                                     'CrewController@index');
     Route::get('/account',                              'CrewController@account');
+    Route::get('/projects',                             'CrewController@projects');
+    Route::get('/project/{id}',                         'CrewController@project');
 });
 Route::group(['prefix' => 'client',  'middleware' => ['customer']], function() {
     Route::post('/account',                             'CustomerController@update');
@@ -26,6 +28,9 @@ Route::group(['prefix' => 'client',  'middleware' => ['customer']], function() {
 
     Route::get('/',                                     'CustomerController@index');
     Route::get('/account',                              'CustomerController@account');
+    Route::get('/project/{id}',                         'CustomerController@project');
+    Route::get('/translators',                          'CustomerController@users');
+    Route::get('/translator/{id}',                      'CustomerController@user');
 });
 
 Route::get('/',                                         'HomeController@index');
