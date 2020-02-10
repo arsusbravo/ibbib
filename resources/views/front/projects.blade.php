@@ -23,6 +23,12 @@
                             </div>
                         </div>
                     </div>
+                    @if ($user->role->slug == 'customer')
+                        <div class="card-footer">
+                            <a href="{{ url('client/project-edit/'. $project->id) }}" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> {{ __('Edit') }}</a>
+                            <a href="#" class="btn btn-danger btn-sm"><i class="fa fa-times"></i> {{ __('Unpublish') }}</a>
+                        </div>
+                    @endif
                 </div>
             </div>
         @endforeach

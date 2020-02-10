@@ -15,6 +15,17 @@
       <link rel="stylesheet" href="{{ url('themes/frontpage/css/font-awesome.min.css') }}">
       <link rel="stylesheet" href="{{ url('themes/frontpage/css/jquery-te.css') }}">
       <link rel="stylesheet" href="{{ url('themes/frontpage/css/slick.css') }}">  
+      @if (\Auth::check())
+          <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+          <style>
+              .select2-container { margin-bottom: 20px }
+              .select2-container--default .select2-selection--single, .select2-container--default .select2-selection--multiple { border: 1px solid #e8e6e8; background-color: #faf7fa }
+              .select2-container .select2-selection--multiple { min-height: 45px }
+              .select2-container .select2-selection--single { height:45px }
+              .select2-container--default .select2-selection--single .select2-selection__rendered { line-height: 45px }
+              .select2-container--default .select2-selection--single .select2-selection__arrow { height: 45px }
+          </style>
+      @endif
       <link rel="stylesheet" href="{{ url('themes/frontpage/css/main.css') }}">
       <link rel="stylesheet" href="{{ url('themes/frontpage/css/responsive.css') }}">
       
@@ -114,9 +125,13 @@
       <script src="{{ url('themes/frontpage/js/waypoints.min.js') }}"></script>
       <script src="{{ url('themes/frontpage/js/slick.min.js') }}"></script>
       <script src="{{ url('themes/frontpage/js/jquery-te.min.js') }}"></script>
-      <script src="https://maps.google.com/maps/api/js?sensor=true"></script>
-      <script src="{{ url('themes/frontpage/js/gmaps.min.js') }}"></script>
       <script src="{{ url('themes/frontpage/js/main.js') }}"></script>
+      @if (\Auth::check())
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+        <script>
+            $('.select2').select2();
+        </script>
+      @endif
       @yield('script-bottom')
     </body>
 </html>

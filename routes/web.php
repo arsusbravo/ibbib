@@ -17,17 +17,20 @@ Route::group(['prefix' => 'admin',  'middleware' => ['master', 'admin', 'worker'
 Route::group(['prefix' => 'user',  'middleware' => ['crew']], function() {
     Route::post('/account',                             'CrewController@update');
 
-    Route::get('/',                                     'CrewController@index');
-    Route::get('/account',                              'CrewController@account');
-    Route::get('/project/{id}',                         'CrewController@project');
+    Route::get('/',                                     'ProjectController@index');
+    Route::get('/account',                              'CrewController@index');
+    Route::get('/project/{id}',                         'ProjectController@show');
 });
 Route::group(['prefix' => 'client',  'middleware' => ['customer']], function() {
     Route::post('/account',                             'CustomerController@update');
-    Route::post('/project',                             'CustomerController@projectStore');
+    Route::post('/project',                             'ProjectController@store');
+    Route::post('/project/{id}',                        'ProjectController@update');
 
-    Route::get('/',                                     'CustomerController@index');
-    Route::get('/account',                              'CustomerController@account');
-    Route::get('/project/{id}',                         'CustomerController@project');
+    Route::get('/',                                     'ProjectController@create');
+    Route::get('/account',                              'CustomerController@index');
+    Route::get('/project-edit/{id}',                    'ProjectController@edit');
+    Route::get('/project-publication/{id}',             'ProjectController@publish');
+    Route::get('/project/{id}',                         'ProjectController@show');
     Route::get('/translators',                          'CustomerController@users');
     Route::get('/translator/{id}',                      'CustomerController@user');
 });
