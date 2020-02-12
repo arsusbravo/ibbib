@@ -24,11 +24,13 @@ class CrewController extends Controller
         $user = \Auth::user();
         $languages = \App\Models\Language::whereActive(1)->get();
         $countries = \App\Models\Country::all();
-
+        $userCrew = Crew::find($user->crew->id);
+        $selectedCountry = $userCrew->country_id;
         return view('user.settings', [
             'user' => $user,
             'countries' => $countries,
             'languages' => $languages,
+            'selectedCountry' => $selectedCountry
         ]);
     }
 
@@ -47,6 +49,7 @@ class CrewController extends Controller
         $updatedCrew->standard_rates = $input['standard_rates'];
         $updatedCrew->additional_info = $input['additional_info'];
         $updatedCrew->rate_per = $input['unit_rate'];
+        $updatedCrew->country_id = $input['country_id'];
 
 
         $updatedCrew->save();

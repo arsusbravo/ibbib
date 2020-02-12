@@ -42,7 +42,7 @@
                         <select class="form-control" name="country_id">
                             <option value="0">{{ __('Choose a country') }}</option>
                             @foreach ($countries as $country)
-                                <option value="{{ $country->id }}">{{ $country->country_name }}</option>
+                             <option value="{{ $country->id }}" {{$selectedCountry == $country->id ? 'selected' : '' }}>{{ $country->country_name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -86,6 +86,7 @@
                             <div class="col-sm-4 col-md-4">
                                 <label>From</label>
                                 <select name="language_from[]" class="form-control">
+                                     <option value="0">{{ __('Choose a language') }}</option>
                                     @foreach ($languages as $lang)
                                         <option value="{{ $lang->id }}">{!! $lang->name !!}</option>
                                     @endforeach
@@ -94,6 +95,7 @@
                             <div class="col-sm-4 col-md-4">
                                 <label>To</label>
                                 <select name="language_to[]" class="form-control">
+                                 <option value="0">{{ __('Choose a language') }}</option>
                                     @foreach ($languages as $lang)
                                         <option value="{{ $lang->id }}">{!! $lang->name !!}</option>
                                     @endforeach
@@ -125,6 +127,7 @@
                         <div class="col-md-4">
                             <label>Translation from:</label>
                             <select name="from[]" class="form-control">
+                                 <option value="0">{{ __('Choose a language') }}</option>
                                 @foreach ($languages as $lang)
                                     <option value="{{ $lang->id }}">{!! $lang->name !!}</option>
                                 @endforeach
@@ -133,6 +136,7 @@
                         <div class="col-md-4">
                             <label>Translate in to:</label>
                             <select name="to[]" class="form-control">
+                              <option value="0">{{ __('Choose a language') }}</option>
                                 @foreach ($languages as $lang)
                                     <option value="{{ $lang->id }}">{!! $lang->name !!}</option>
                                 @endforeach
