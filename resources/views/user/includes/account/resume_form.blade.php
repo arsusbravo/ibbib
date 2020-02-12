@@ -9,7 +9,7 @@
                 <span class="tr-title">{{ __('Title') }}</span>
                 <input class="form-control" name="objective" placeholder="{{ __('Title of your resume') }}" value="{!! $user->crew->objective ? $user->crew->objective: '' !!}">
                 <span class="tr-title">{{ __('Motivation') }}</span>
-                <textarea class="form-control" rows="10" placeholder="{{ __('Fill in your marketing words') }}">{!! $user->crew->resume ? $user->crew->resume: '' !!}</textarea>
+                <textarea name="motivation" class="form-control" rows="10" placeholder="{{ __('Fill in your marketing words') }}">{!! $user->crew->resume ? $user->crew->resume: '' !!}</textarea>
             </div>
         </li>
         <li class="personal-deatils code-edit-small">
@@ -61,8 +61,8 @@
                     </div>
                     <div class="col-sm-4">
                         <select class="form-control" name="unit_rate">
-                            <option value="word"{!! $user->crew->unit_rate == 'word' ? ' selected="selected"': null !!}>/ {{ __('word') }}</option>
-                            <option value="hour"{!! $user->crew->unit_rate == 'hour' ? ' selected="selected"': null !!}>/ {{ __('hour') }}</option>
+                        <option value="word" {{ ( $user->crew->unit_rate == 'word') ? 'selected' : '' }}> {{ __('word') }} </option>
+                        <option value="hour" {{ ( $user->crew->unit_rate == 'hour') ? 'selected' : '' }}> {{ __('hour') }} </option>
                         </select>
                     </div>
                 </div>
@@ -162,12 +162,12 @@
             </div>
             <div class="media-body">
                 <span class="tr-title">{{ __('Additional information') }}</span>
-                <textarea class="form-control" rows="10" placeholder="{{ __('Additional information') }}"></textarea>
+                <textarea name="additional_info" class="form-control" rows="10" placeholder="{{ __('Additional information') }}">{{ $user->crew->additional_info }}</textarea>
             </div>
         </li><!-- /.personal-deatils -->				
     </ul>
     <div class="buttons pull-right">
         <a href="#resume" aria-controls="resume" role="tab" data-toggle="tab" class="btn button-cancle">{{ __('Cancel') }}</a>
-        <button type="submit" class="btn btn-primary">{{ __('Update Your Resume') }}</button>
+        <button  type="submit" class="btn btn-primary">{{ __('Update Your Resume') }}</button>
     </div>	
 </form>
