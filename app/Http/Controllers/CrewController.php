@@ -33,9 +33,9 @@ class CrewController extends Controller
             'selectedCountry' => $selectedCountry
         ]);
     }
-
     public function update(Request $request)
     {
+        $certificates = array();
         $user = \Auth::user();
         $input = $request->all();
         $updatedUser = User::find($user->id);
@@ -50,8 +50,6 @@ class CrewController extends Controller
         $updatedCrew->additional_info = $input['additional_info'];
         $updatedCrew->rate_per = $input['unit_rate'];
         $updatedCrew->country_id = $input['country_id'];
-
-
         $updatedCrew->save();
 
         if ($updatedUser->save()) {
