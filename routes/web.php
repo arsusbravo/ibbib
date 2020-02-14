@@ -32,8 +32,8 @@ Route::group(['prefix' => 'client',  'middleware' => ['customer']], function() {
     Route::get('/project-edit/{id}',                    'ProjectController@edit');
     Route::get('/project-publication/{id}',             'ProjectController@publish');
     Route::get('/project/{id}',                         'ProjectController@show');
-    Route::get('/translators',                          'CustomerController@users');
-    Route::get('/translator/{id}',                      'CustomerController@user');
+    Route::get('/translators',                          'CustomerController@read');
+    Route::get('/translator/{id}',                      'CustomerController@show');
 });
 
 Route::get('/',                                         'HomeController@index');

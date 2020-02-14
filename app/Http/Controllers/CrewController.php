@@ -48,7 +48,7 @@ class CrewController extends Controller
         $updatedCrew->co_phone = $input['phone'];
         $updatedCrew->standard_rates = $input['standard_rates'];
         $updatedCrew->additional_info = $input['additional_info'];
-        $updatedCrew->rate_per = $input['unit_rate'];
+        $updatedCrew->unit_rate = $input['unit_rate'];
         $updatedCrew->country_id = $input['country_id'];
         $updatedCrew->save();
 

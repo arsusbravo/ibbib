@@ -68,7 +68,7 @@
         <li>{{ __('Phone Number') }}<span {!! !$user->crew->co_phone ? 'class="text-warning"': '' !!}> {!! $user->crew->co_phone ? $user->crew->co_phone: __('No phone number') !!}</span></li>
         <li>{{ __('Location/Nationality') }}<span {!! !$user->crew->location ? 'class="text-warning"': '' !!}> {!! $user->crew->location ? $user->crew->location->country_name: __('No location') !!}</span></li>
         <li>{{ __('Email') }}<span>{!! $user->email !!}</span></li>
-        <li>{{ __('Price') }}<span>&#36; {{ $user->crew->standard_rates ? $user->crew->standard_rates . ' / '. $user->crew->rate_per: 0.00 }}</span></li>
+        <li>{{ __('Price') }}<span>&#36; {{ $user->crew->standard_rates ? $user->crew->standard_rates . ' / '. $user->crew->unit_rate: 0.00 }}</span></li>
     </ul>								
 </div><!-- /.display-information -->
 <div class="section">
