@@ -1,7 +1,7 @@
 @extends('layouts.front')
 
 @section('content-top')
-    <div class="tr-breadcrumb bg-image section-before">
+    <div class="tr-breadcrumb bg-image section-before" style="background-image:url({{ url('themes/frontpage/images/bg/translator.jpg') }})">
         <div class="container">
             <div class="breadcrumb-info text-center">
                 <div class="user-image">

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use \App\Helpers\AppHelper;
 use App\Models\LanguageSkill;
 use App\Models\Language;
+use App\Models\Price;
 use App\Models\Project;
 use App\Models\Crew;
 
@@ -96,5 +97,25 @@ class CustomerController extends Controller
             'user' => $user,
             'translator' => $translator,
         ]);
+    }
+
+    public function pricing(){
+        $user = \Auth::user();
+        $pricelist = Price::where('role_id', $user->role_id)->get();
+        return view('client.pricing', [
+            'user' => $user,
+            'pricelist' => $pricelist,
+        ]);
+    }
+
+    public function recruiting($id){
+        $user = \Auth::user();
+        $now = \Carbon\Carbon::now();
+        $start = !is_null($user->client->credits) ? \Carbon\Carbon::parse($user->client->credit_start): $now;
+        if(!is_null($user->client->credits) && !is_null($user->client->credits) && $now->lte($start)){
+            //
+        }else{
+            return redirect('client/pricing')->with('info_msg', __('To apply for a project you need to have a credit. Here you can buy some credits.'));
+        }
     }
 }

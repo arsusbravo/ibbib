@@ -86,9 +86,7 @@
         <a href="#edit-resume" aria-controls="edit-resume" role="tab" data-toggle="tab" class="btn btn-primary">{{ __('Update Your Resume') }}</a>
     @elseif(\Auth::user()->role->slug == 'customer')
         <a href="{{ \URL::previous() }}" class="btn btn-warning"><i class="fa fa-arrow-left" aria-hidden="true"></i>{{ __('Back to list') }}</a>
-        @if (\Auth::user()->client->credits)
-            <a href="#" class="btn button-send"><i class="fa fa-envelope-o" aria-hidden="true"></i>{{ __('Send message') }}</a>
-        @endif
+        <a href="{{ url('client/recruit/'. $user->id) }}" class="btn button-send"><i class="fa fa-envelope-o" aria-hidden="true"></i>{{ __('Send message') }}</a>
         <a href="#" class="btn btn-primary"><i class="fa fa-cloud-download" aria-hidden="true"></i>{{ __('Download Resume as doc') }}</a>
     @endif
 </div>		

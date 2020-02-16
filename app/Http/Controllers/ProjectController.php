@@ -361,7 +361,7 @@ class ProjectController extends Controller
 
     public function apply($id){
         $user = \Auth::user();
-        if($user->credits){
+        if($user->crew->credits){
             //
         }else{
             return redirect('user/pricing')->with('info_msg', __('To apply for a project you need to have a credit. Here you can buy some credits.'));

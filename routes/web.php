@@ -36,6 +36,7 @@ Route::group(['prefix' => 'client',  'middleware' => ['customer']], function() {
     Route::get('/project-publication/{id}',             'ProjectController@publish');
     Route::get('/project/{id}',                         'ProjectController@show');
     Route::get('/pricing',                              'CustomerController@pricing');
+    Route::get('/recruit/{id}',                         'CustomerController@recruiting');
     Route::get('/translators',                          'CustomerController@read');
     Route::get('/translator/{id}',                      'CustomerController@show');
 });

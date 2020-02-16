@@ -3,7 +3,7 @@
 @section('content')
     <div class="breadcrumb-info text-center">
         <div class="page-title mt-5 mb-5">
-            <h1>{{ __('Application prices') }}</h1>
+            <h1>{{ __('Translator prices') }}</h1>
         </div>		
     </div>
     <div class="tr-pricing section-padding">
