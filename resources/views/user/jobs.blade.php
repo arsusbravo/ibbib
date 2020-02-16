@@ -1,7 +1,7 @@
 @extends('layouts.front')
 
 @section('content-top')
-    <div class="tr-breadcrumb bg-image section-before">
+    <div class="tr-breadcrumb bg-project section-before">
         <div class="container">
             <div class="breadcrumb-info text-center">
                 @if (!$hasResume)
@@ -19,7 +19,7 @@
                 </ol>
                 <div class="banner-form">
                     <form action="{{ url('user') }}" method="GET">
-                        <input type="text" class="form-control" name="search" placeholder="{{ __('Job Keyword') }}" value="{!! \Request::query('search') !!}">
+                        <input type="text" class="form-control" name="search" placeholder="{{ __('Search projects') }}" value="{!! \Request::query('search') !!}">
                         @if (count(\Request::query()))
                             @foreach (\Request::query() as $key=>$input)
                                 @if ($key != 'search')
@@ -39,6 +39,7 @@
     <style>
         .select-header.form-control { border:none }
         .list-menu>ul>li { width:100% }
+        .bg-project { background-image: url({{ url('themes/frontpage/images/bg/project.jpg') }}) }
     </style>
 @endsection
 

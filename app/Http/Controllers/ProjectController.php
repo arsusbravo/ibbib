@@ -243,12 +243,16 @@ class ProjectController extends Controller
             return redirect()->back()->with('error_msg', __('This project has met the deadline'));
         }
         $bookmarked = false;
+        $otherprojects = Project::where('id', '!=', $id);
         switch($user->role->slug){
             case "customer":
                 $blade = 'client.project';
+                $otherprojects = $otherprojects->where('customer_id', \Auth::id());
             break;
             case "crew":
                 $blade = 'user.job-details';
+                $userskills = \Auth::user()->crew->skills()->pluck('skill_id')->toArray();
+                $otherprojects = $otherprojects->whereIn('skill_id', $userskills);
                 if($project->bookmarked[0]->pivot->where('crew_id', \Auth::user()->crew->id)->count()){
                     $bookmarked = true;
                 }
@@ -257,11 +261,13 @@ class ProjectController extends Controller
                 $blade = 'front.project';
             break;
         }
+        $otherprojects = $otherprojects->take(4)->get();
 
         return view($blade, [
             'user' => $user,
             'project' => $project,
             'bookmarked' => $bookmarked,
+            'otherprojects' => $otherprojects,
         ]);
     }
 

@@ -34,7 +34,12 @@
         @endforeach
     @else
         <div class="col-12">
-            <div class="alert alert-info">{{ __('There is no active projects at the moment.') }}</div>
+            @if (!isset($empty_msg))
+                <div class="alert alert-info">{{ __('There is no active projects at the moment.') }}</div>
+            @else
+                <div class="alert alert-info">{{ $empty_msg }}</div>
+            @endif
+            
         </div>
     @endif
 </div>
