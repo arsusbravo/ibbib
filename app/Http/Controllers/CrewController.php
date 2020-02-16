@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Crew;
+use App\Models\Price;
 
 class CrewController extends Controller
 {
@@ -20,7 +21,6 @@ class CrewController extends Controller
 
     public function index()
     {
-
         $user = \Auth::user();
         $languages = \App\Models\Language::whereActive(1)->get();
         $countries = \App\Models\Country::all();
@@ -33,6 +33,16 @@ class CrewController extends Controller
             'selectedCountry' => $selectedCountry
         ]);
     }
+
+    public function pricing(){
+        $user = \Auth::user();
+        $pricelist = Price::where('role_id', $user->role_id)->get();
+        return view('user.pricing', [
+            'user' => $user,
+            'pricelist' => $pricelist,
+        ]);
+    }
+
     public function update(Request $request)
     {
         $certificates = array();

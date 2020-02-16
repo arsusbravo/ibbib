@@ -18,9 +18,12 @@ Route::group(['prefix' => 'user',  'middleware' => ['crew']], function() {
     Route::post('/account',                             'CrewController@update');
 
     Route::get('/',                                     'ProjectController@index');
+    Route::get('/pricing',                              'CrewController@pricing');
     Route::get('/account',                              'CrewController@index');
     
     Route::get('/project/{id}',                         'ProjectController@show');
+    Route::get('/apply/{id}',                           'ProjectController@apply');
+    Route::get('/bookmark/{id}',                        'ProjectController@bookmark');
 });
 Route::group(['prefix' => 'client',  'middleware' => ['customer']], function() {
     Route::post('/account',                             'CustomerController@update');
@@ -32,6 +35,7 @@ Route::group(['prefix' => 'client',  'middleware' => ['customer']], function() {
     Route::get('/project-edit/{id}',                    'ProjectController@edit');
     Route::get('/project-publication/{id}',             'ProjectController@publish');
     Route::get('/project/{id}',                         'ProjectController@show');
+    Route::get('/pricing',                              'CustomerController@pricing');
     Route::get('/translators',                          'CustomerController@read');
     Route::get('/translator/{id}',                      'CustomerController@show');
 });

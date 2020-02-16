@@ -24,7 +24,7 @@ class Role extends Model
     /**
      * Get tarif.
      */
-    public function tarif()
+    public function prices()
     {
         return $this->hasMany('App\Models\Price', 'role_id');
     }

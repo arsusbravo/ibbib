@@ -226,13 +226,16 @@ class ProjectController extends Controller
         if($today->gt(\Carbon\Carbon::parse($project->deadline))){
             return redirect()->back()->with('error_msg', __('This project has met the deadline'));
         }
-
+        $bookmarked = false;
         switch($user->role->slug){
             case "customer":
                 $blade = 'client.project';
             break;
             case "crew":
-                $blade = 'client.project';
+                $blade = 'user.job-details';
+                if($project->bookmarked[0]->pivot->where('crew_id', \Auth::user()->crew->id)->count()){
+                    $bookmarked = true;
+                }
             break;
             default:
                 $blade = 'front.project';
@@ -242,6 +245,7 @@ class ProjectController extends Controller
         return view($blade, [
             'user' => $user,
             'project' => $project,
+            'bookmarked' => $bookmarked,
         ]);
     }
 
@@ -353,5 +357,20 @@ class ProjectController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function apply($id){
+        $user = \Auth::user();
+        if($user->credits){
+            //
+        }else{
+            return redirect('user/pricing')->with('info_msg', __('To apply for a project you need to have a credit. Here you can buy some credits.'));
+        }
+    }
+
+    public function bookmark($id){
+        $project = Project::find($id);
+        $project->bookmarked()->attach(\Auth::user()->crew->id);
+        return redirect()->back()->with('success_msg', __('The project has been bookmarked. You can find it in your account page'));
     }
 }
