@@ -39,10 +39,14 @@ class ProjectController extends Controller
             $hasResume = true;
         }
 
-        $projects = Project::with('client')->where(function($query) use ($request, $from, $to){
-            $query->where('published', 1)->whereNull('deleted')->where('deadline', '>', \Carbon\Carbon::today());
+        $projects = Project::with('client')->with('skill')->where(function($query) use ($request, $from, $to){
+            $query->where('published', 1)->whereNull('deleted')->where('published_at', '<', \Carbon\Carbon::now())->where('deadline', '>', \Carbon\Carbon::today());
 
-            if($from || $to){
+            if(\Auth::check() && \Auth::user()->role->slug == 'crew'){
+                $userskills = \Auth::user()->crew->skills()->pluck('skill_id')->toArray();
+                $query->whereIn('skill_id', $userskills);
+            }
+            /* if($from || $to){
                 if($from && $to){
                     $skills = LanguageSkill::where('from', $from)->where('to', $to);
                 }elseif(!$request->query('from') && $request->query('to')){
@@ -56,7 +60,7 @@ class ProjectController extends Controller
                     $skill_ids[] = $skill->skill->id;
                 }
                 $query->whereIn('skill_id', $skill_ids);
-            }
+            } */
             
             $search = $request->query('search');
             if($search){
@@ -71,6 +75,13 @@ class ProjectController extends Controller
                     $q->where('info', 'LIKE', '%' . $search . '%');
                 });
             });
+
+            if($request->query('orderby')){
+                $orderby = $request->query('orderby');
+            }else{
+                $orderby = 'published_at';
+            }
+            $query->orderBy($orderby, 'desc');
         });
         $count_projects = $projects->count();
         $projects = $projects->paginate(20);
@@ -85,6 +96,10 @@ class ProjectController extends Controller
             $to = $tolang->name;
         }
         $params = $request->query();
+        $orderbies = [
+            'published_at' => 'Publish date', 
+            'deadline' => 'Deadline', 
+        ];
         
         return view($blade, [
             'to' => $to,
@@ -95,6 +110,7 @@ class ProjectController extends Controller
             'languages' => $languages,
             'apphelper' => $apphelper,
             'hasResume' => $hasResume,
+            'orderbies' => $orderbies,
             'count_projects' => $count_projects,
         ]);
     }

@@ -85,6 +85,15 @@ class CustomerController extends Controller
     }
 
     /**
+     * Update info and profile.
+     *
+     * @return redirect
+     */
+    public function update(){
+        //
+    }
+
+    /**
      * Translator detail.
      *
      * @return translator

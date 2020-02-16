@@ -38,52 +38,41 @@
 @section('script-top')
     <style>
         .select-header.form-control { border:none }
-        .list-menu>ul>li { float:none; width:100% }
+        .list-menu>ul>li { width:100% }
     </style>
 @endsection
 
 @section('content')
     <div class="jobs-listing section-padding">
         <div class="container">
-            <div class="row">
-                <div class="col-md-9">
-                    <div class="job-topbar">
-                        <span>{{ __('Find projects') }}</span>		
+            <div class="row mb-3">
+                <div class="col-sm-8">
+                    <div class="job-topbar mb-0">
+                        <h2>{{ __('Find projects') }}</h2>		
                     </div>
-                    <div class="tab-content tr-job-posted">
-                        <div role="tabpanel" class="tab-pane fade show active" id="four-colum">
-                            @include('front.projects')			
-                        </div><!-- /.tab-pane -->
-                    </div><!-- /.tab-content -->
-                </div><!-- /.tab-content -->
-                <div class="col-md-3">
-                    <div class="job-topbar">
-                        <span class="pull-left">{{ __('Filter projects by') }}</span>		
-                    </div>
+                </div>
+                <div class="col-sm-4">
                     <div class="list-menu">
                         <ul class="tr-list">
-                            <li class="dropdown dropleft tr-change-dropdown">	
-                                {{ __('Source language') }}:					
-                                <a data-toggle="dropdown" href="#" aria-expanded="false"><span class="change-text">{{ !is_null($from) ? $from: __('All') }}</span><i class="fa fa-angle-down"></i></a>
+                            <li class="dropdown tr-change-dropdown">	
+                                {{ __('Sort by') }}:					
+                                <a data-toggle="dropdown" href="#" aria-expanded="false"><span class="change-text">{{ \Request::query('orderBy') ? $orderbies[\Request::query('orderBy')]: __('Published date') }}</span><i class="fa fa-angle-down"></i></a>
                                 <ul class="dropdown-menu tr-change">
-                                    @foreach ($languages as $lang)
-                                        <li><a href="{{ url('user').$apphelper->queryToURL($params, ['from'=>$lang->id]) }}"><img src="{{ url('themes/frontpage/images/flags/sm/'.strtoupper($lang->code).'.png') }}" class="img-fluid"> {{ $lang->name }}</a></li>
+                                    @foreach ($orderbies as $key=>$orderby)
+                                        <li><a href="{{ url('user').$apphelper->queryToURL($params, ['orderby'=>$key]) }}">{{ $orderby }}</a></li>
                                     @endforeach
                                 </ul>								
                             </li>
-                            <li class="dropdown dropleft tr-change-dropdown">	
-                                {{ __('Target language') }}:					
-                                <a data-toggle="dropdown" href="#" aria-expanded="false"><span class="change-text">{{ !is_null($to) ? $to: __('All') }}</span><i class="fa fa-angle-down"></i></a>
-                                <ul class="dropdown-menu tr-change">
-                                    @foreach ($languages as $lang)
-                                        <li><a href="{{ url('user').$apphelper->queryToURL($params, ['to'=>$lang->id]) }}"><img src="{{ url('themes/frontpage/images/flags/sm/'.strtoupper($lang->code).'.png') }}" class="img-fluid"> {{ $lang->name }}</a></li>
-                                    @endforeach
-                                </ul>
-                            </li>
                         </ul>				
-                    </div><!-- /.list-menu -->	
+                    </div><!-- /.list-menu -->
                 </div>
-            </div>	
+            </div>
+            <div class="clearfix"></div>	
+            <div class="tab-content tr-job-posted">
+                <div role="tabpanel" class="tab-pane fade show active" id="four-colum">
+                    @include('front.projects')			
+                </div><!-- /.tab-pane -->
+            </div><!-- /.tab-content -->
         </div><!-- /.container -->		
     </div>
 @endsection
