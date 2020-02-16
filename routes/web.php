@@ -36,5 +36,10 @@ Route::group(['prefix' => 'client',  'middleware' => ['customer']], function() {
     Route::get('/translator/{id}',                      'CustomerController@show');
 });
 
+Route::get('terms-conditions',                          'HomeController@termsconditions');
+Route::get('translator',                                'HomeController@translator');
+Route::get('contact',                                   'HomeController@contact');
+Route::get('agency',                                    'HomeController@agency');
+Route::get('about',                                     'HomeController@about');
 Route::get('/',                                         'HomeController@index');
 Auth::routes();

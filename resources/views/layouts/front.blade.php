@@ -75,42 +75,7 @@
         </nav><!-- /.navbar -->
       </header><!-- /.tr-header -->
       @yield('content-top')
-        @if (session('status'))
-            <div class="tr-cta">
-                <div class="container">
-                    <div class="alert alert-success" role="alert">
-                        {{ session('status') }}
-                    </div>
-                </div>
-            </div>
-        @endif
-        @if (session('success_msg'))
-            <div class="tr-cta">
-                <div class="container">
-                    <div class="alert alert-success" role="alert">
-                        {{ session('success_msg') }}
-                    </div>
-                </div>
-            </div>
-        @endif
-        @if (session('error_msg'))
-            <div class="tr-cta">
-                <div class="container">
-                    <div class="alert alert-danger" role="alert">
-                        {{ session('error_msg') }}
-                    </div>
-                </div>
-            </div>
-        @endif
-        @if (session('info_msg'))
-            <div class="tr-cta">
-                <div class="container">
-                    <div class="alert alert-info" role="alert">
-                        {{ session('info_msg') }}
-                    </div>
-                </div>
-            </div>
-        @endif
+      @include('front.includes.alerts')
       @yield('content')
   
       @include('front.includes.footer')

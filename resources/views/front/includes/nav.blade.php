@@ -1,14 +1,10 @@
 <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="nav navbar-nav">
-        <li class="tr-dropdown active"><a href="#">Home</a>
-            <ul class="tr-dropdown-menu left tr-list fadeInUp" role="menu">
-                <li><a href="index.html">Home Page V-1</a></li>
-                <li class="active"><a href="index1.html">Home Page V-2</a></li>
-            </ul>
-        </li>
-        <li><a href="job-post.html">Post A Job</a></li>
-        <li><a href="listing.html">Job List</a></li>
-        <li><a href="job-details.html">Job Details</a></li>
+        <li {!! \Request::path() == '/' ? 'class="active"': null !!}><a href="{{ url('/') }}">Home</a></li>
+        <li {!! \Request::path() == 'translator' ? 'class="active"': null !!}><a href="{{ url('translator') }}">{{ __('Translator') }}</a></li>
+        <li {!! \Request::path() == 'agency' ? 'class="active"': null !!}><a href="{{ url('agency') }}">{{ __('Agency') }}</a></li>
+        <li {!! \Request::path() == 'about' ? 'class="active"': null !!}><a href="{{ url('about') }}">{{ __('About IBBIB jobs') }}</a></li>
+        <li {!! \Request::path() == 'contact' ? 'class="active"': null !!}><a href="{{ url('contact') }}">{{ __('Contact') }}</a></li>
     </ul>
 </div>
 
@@ -40,10 +36,8 @@
                 </form>
             </li>
         @else
-            <li><a href="{{ route('login') }}">Sign In </a></li>
-            <li><a href="{{ route('register') }}">Register</a></li>
+            <li {!! \Request::path() == 'login' ? 'class="active"': null !!}><a href="{{ route('login') }}">{{ __('Sign In') }} </a></li>
+            <li {!! \Request::path() == 'register' ? 'class="active"': null !!}><a href="{{ route('register') }}">{{ __('Sign Up') }}</a></li>
         @endif
     </ul><!-- /.sign-in -->					
-
-    <a href="{{ url('job-post') }}" class="btn btn-primary">Post Job</a>
 </div><!-- /.nav-right -->

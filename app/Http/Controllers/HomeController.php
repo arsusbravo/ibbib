@@ -16,4 +16,20 @@ class HomeController extends Controller
     {
         return view('home');
     }
+
+    public function about(){
+        return view('pages.about');
+    }
+
+    public function translator(){
+        return view('pages.translator');
+    }
+
+    public function agency(){
+        return view('pages.agency');
+    }
+
+    public function contact(){
+        return view('pages.contact');
+    }
 }

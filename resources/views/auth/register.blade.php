@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.front')
 
 @section('content-top')
     <div class="tr-breadcrumb bg-image section-before">
