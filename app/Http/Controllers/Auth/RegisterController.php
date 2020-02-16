@@ -30,7 +30,7 @@ class RegisterController extends Controller
      * @var string
      */
     protected $redirectTo = RouteServiceProvider::HOME;
-    protected function redirectTo()
+    /* protected function redirectTo()
     {
         if (auth()->user()->role->slug == 'admin' || 
             auth()->user()->role->slug == 'master' || 
@@ -44,6 +44,23 @@ class RegisterController extends Controller
             return '/client';
         }
         return '/';
+    } */
+
+    /**
+     * Handle a registration request for the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+        /* Send activation email here! */
+
+        return redirect($this->redirectPath())->with('info_msg', __('Please activate your account by clicking on the link in the activation e-mail we have just sent.'));
     }
 
     /**
