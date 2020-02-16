@@ -64,9 +64,9 @@
                     </div>
                     <div class="col-sm-4">
                         <select class="form-control" name="unit_rate">
-                            <option value="word" {{  $user->crew->rate_per == 'word' ? 'selected' : '' }}>
+                            <option value="word" {{  $user->crew->unit_rate == 'word' ? 'selected' : '' }}>
                                 {{ __('word') }} </option>
-                            <option value="hour" {{ $user->crew->rate_per == 'hour' ? 'selected' : '' }}>
+                            <option value="hour" {{ $user->crew->unit_rate == 'hour' ? 'selected' : '' }}>
                                 {{ __('hour') }} </option>
                         </select>
                     </div>
