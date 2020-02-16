@@ -8,6 +8,7 @@ use \App\Helpers\AppHelper;
 use App\Models\LanguageSkill;
 use App\Models\Skill;
 use App\Models\Language;
+use App\Models\Customer;
 use App\Models\Project;
 
 class ProjectController extends Controller
@@ -17,9 +18,16 @@ class ProjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $blade = 'front.projects';
+        $apphelper = new AppHelper;
+        $from = $request->query('from');
+        $to = $request->query('to');
+        
+        if($from && $from == $to){
+            return redirect()->back()->with('error_msg', __('You cannot translate from the same language'));
+        }
         if(\Auth::check()){
             $user = \Auth::user();
             $hasResume = !$user->crew->resume ? false: true;
@@ -30,14 +38,64 @@ class ProjectController extends Controller
             $user = null;
             $hasResume = true;
         }
-        $user = \Auth::user();
-        $hasResume = !$user->crew->resume ? false: true;
-        $projects = Project::where('published', 1)->whereNull('deleted')->where('deadline', '>', \Carbon\Carbon::today())->get();
+
+        $projects = Project::with('client')->where(function($query) use ($request, $from, $to){
+            $query->where('published', 1)->whereNull('deleted')->where('deadline', '>', \Carbon\Carbon::today());
+
+            if($from || $to){
+                if($from && $to){
+                    $skills = LanguageSkill::where('from', $from)->where('to', $to);
+                }elseif(!$request->query('from') && $request->query('to')){
+                    $skills = LanguageSkill::where('to', $to);
+                }elseif($request->query('from') && !$request->query('to')){
+                    $skills = LanguageSkill::where('from', $from);
+                }
+                $skills = $skills->get();
+                $skill_ids=[]; 
+                foreach($skills as $skill){
+                    $skill_ids[] = $skill->skill->id;
+                }
+                $query->whereIn('skill_id', $skill_ids);
+            }
+            
+            $search = $request->query('search');
+            if($search){
+                $query->where(function($q) use ($search){
+                    $q->orWhere('title', '%'.$search.'%');
+                    $q->orWhere('content', 'LIKE', '%'.$search.'%');
+                });
+            }
+            $query->orWhereHas('client', function($q) use ($search) {
+                $q->where(function($q) use ($search) {
+                    $q->where('co_name', 'LIKE', '%' . $search . '%');
+                    $q->where('info', 'LIKE', '%' . $search . '%');
+                });
+            });
+        });
+        $count_projects = $projects->count();
+        $projects = $projects->paginate(20);
+        $languages = Language::whereActive(1)->get();
+        $from = $to = null;
+        if($request->query('from')){
+            $fromlang = Language::find($request->query('from'));
+            $from = $fromlang->name;
+        }
+        if($request->query('to')){
+            $tolang = Language::find($request->query('to'));
+            $to = $tolang->name;
+        }
+        $params = $request->query();
         
         return view($blade, [
+            'to' => $to,
+            'from' => $from,
             'user' => $user,
+            'params' => $params,
             'projects' => $projects,
+            'languages' => $languages,
+            'apphelper' => $apphelper,
             'hasResume' => $hasResume,
+            'count_projects' => $count_projects,
         ]);
     }
 

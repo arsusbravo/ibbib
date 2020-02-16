@@ -14,11 +14,18 @@
                 <div class="banner-form">
                     <form action="{{ url('client/translators') }}" method="GET">
                         <input type="text" name="search" class="form-control" placeholder="{{ __('Looking for') }}" value="{!! \Request::query('search') !!}">
+                        @if (count(\Request::query()))
+                            @foreach (\Request::query() as $key=>$input)
+                                @if ($key != 'search')
+                                    <input type="hidden" name="{{ $key }}" value="{{ $input }}">
+                                @endif
+                            @endforeach
+                        @endif
                         <div class="dropdown tr-change-dropdown">
                             <select name="skills" class="select-header form-control">
                                 <option value="0">{{ __('All translation skills') }}</option>
                                 @foreach ($translationskills as $transkill)
-                                	<option value="{{ $transkill->id }}">{!! __('From').' '.$transkill->translateFrom->name. ' ' .__('to'). ' '.$transkill->translateTo->name  !!}</option>
+                                	<option value="{{ $transkill->id }}"{{ $transkill->id == \Request::query('skills') ? ' selected': null }}>{!! __('From').' '.$transkill->translateFrom->name. ' ' .__('to'). ' '.$transkill->translateTo->name  !!}</option>
                                 @endforeach
                             </select>				
                         </div><!-- /.category-change -->

@@ -11,7 +11,9 @@
                             <span class="tr-title">
                                 <a href="{{ url('client/translator/'. $translator->id) }}">{!! $translator->co_name ? $translator->co_name: $translator->user->name !!}</a><span><a href="{{ url('client/translator/'. $translator->id) }}">{!! $translator->objective !!}</a></span>
                             </span>
-                            <span><a href="{{ url('client/translators/?country='. $translator->country_id) }}" class="btn btn-primary">{!! $translator->location->country_name !!}</a></span>
+                            @if ($translator->country_id)
+                                <span><a href="{{ url('client/translators'.$apphelper->queryToURL(\Request::query(), ['country'=>$translator->country_id])) }}" class="btn btn-primary">{{('In')}} {!! $translator->location->country_name !!}</a></span>
+                            @endif
                         </div>
                         <ul class="tr-list job-meta">
                             @foreach ($translator->skills as $skill)
