@@ -22,9 +22,15 @@
                     @csrf
                     <div class="form-group">
                         <input type="email" name="email" class="form-control" placeholder="{{ __('Please Enter Your Email') }}">
+                        @error('email')
+                            <div class="invalid-feedback" style="display:block">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <input type="password" name="password" class="form-control" placeholder="{{ __('Your password') }}">
+                        @error('password')
+                            <div class="invalid-feedback" style="display:block">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="user-option">
                         <div class="checkbox">
