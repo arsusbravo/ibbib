@@ -14,9 +14,7 @@
 Route::group(['prefix' => 'admin',  'middleware' => ['master', 'admin', 'worker']], function() {
     Route::post('country',                              'CountryController@store');
     Route::post('country/{id}',                         'CountryController@update');
-    Route::get('country/{id}',                          'CountryController@edit');
-    Route::get('country',                               'CountryController@create');
-    Route::get('countries',                             'CountryController@index');
+    Route::get('countries/{id?}',                       'CountryController@index');
 
     Route::post('language',                             'LanguageController@store');
     Route::post('language/{id}',                        'LanguageController@update');

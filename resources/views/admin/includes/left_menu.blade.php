@@ -11,7 +11,7 @@
             <span class="nav-link-text">Projects</span>
         </a>
     </li>
-    <li {!! strpos(\Request::path(), 'admin/role/') ? 'class="active open"': '' !!}>
+    <li {!! strpos(\Request::path(), 'admin/role/') !== false ? 'class="active open"': '' !!}>
         <a href="#" title="Users" data-filter-tags="users">
             <i class="fal fa-users"></i>
             <span class="nav-link-text">Users</span>
@@ -52,7 +52,7 @@
             <span class="nav-link-text">Prices</span>
         </a>
     </li>
-    <li {!! \Request::path() == 'admin/countries' ||
+    <li {!! strpos(\Request::path(), 'admin/countries') !== false ||
             \Request::path() == 'admin/languages' ||
             \Request::path() == 'admin/contents' ||
             \Request::path() == 'admin/categories' ||
@@ -63,7 +63,7 @@
             <span class="nav-link-text">Settings</span>
         </a>
         <ul>
-            <li {!! \Request::path() == 'admin/countries' ? 'class="active"': '' !!}>
+            <li {!! strpos(\Request::path(), 'admin/countries') !== false ? 'class="active"': '' !!}>
                 <a href="{{ url('admin/countries') }}" title="Countries" data-filter-tags="countries settings dashboard">
                     <span class="nav-link-text">Countries</span>
                 </a>
