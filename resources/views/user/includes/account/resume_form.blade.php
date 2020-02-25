@@ -84,16 +84,16 @@
                     <span class="icon remove"><i class="fa fa-times" aria-hidden="true"></i></span>
                     <div class="code-edit-small">
                         <label>{{ __('Title') }}</label>
-                        <input class="form-control" name="title[]">
+                        <input class="form-control" name="title[]" id="cert-title">
                         <label>{{ __('Description') }}</label>
-                        <textarea class="form-control" name="description[]"></textarea>
+                        <textarea class="form-control" name="description[]" id="cert-description"></textarea>
                         <div class="row">
                             <div class="col-sm-4 col-md-4">
                                 <label>From</label>
                                 <select name="language_from[]" class="form-control">
                                     <option value="0">{{ __('Choose a language') }}</option>
                                     @foreach ($languages as $lang)
-                                    <option value="{{ $lang->id }}">{!! $lang->name !!}</option>
+                                    <option value="{{ $lang->id }}" id="cert-langFrom">{!! $lang->name !!}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -102,7 +102,7 @@
                                 <select name="language_to[]" class="form-control">
                                     <option value="0">{{ __('Choose a language') }}</option>
                                     @foreach ($languages as $lang)
-                                    <option value="{{ $lang->id }}">{!! $lang->name !!}</option>
+                                    <option value="{{ $lang->id }}" id="cert-langTo">{!! $lang->name !!}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -186,6 +186,6 @@
     <div class="buttons pull-right">
         <a href="#resume" aria-controls="resume" role="tab" data-toggle="tab"
             class="btn button-cancle">{{ __('Cancel') }}</a>
-        <button type="submit" class="btn btn-primary">{{ __('Update Your Resume') }}</button>
+        <button type="submit" class="btn btn-primary save_profile">{{ __('Update Your Resume') }}</button>
     </div>
 </form>
