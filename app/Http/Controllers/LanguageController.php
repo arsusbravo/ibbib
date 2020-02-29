@@ -24,8 +24,22 @@ class LanguageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id=0){
-        $languages = Language::orderBy('active', 'desc')->orderBy('name')->paginate(10);
+    public function index(Request $request, $id=0){
+        $languages = Language::where(function($query) use ($request){
+            if($request->query('search')){
+                $search = $request->query('search');
+                $query->where(function($q) use ($search){
+                    $q->orWhere('name', 'LIKE', '%'.$search.'%');
+                    $q->orWhere('original', '%'.$search.'%');
+                    $q->orWhere('code', '%'.$search.'%');
+                });
+            }
+            $query->orderBy('active', 'desc');
+            $query->orderBy('name');
+        });
+        $count = $languages->count();
+        $languages = $languages->paginate(10);
+
         $countries = Country::all();
         $language = null;
         if($id){
@@ -34,6 +48,7 @@ class LanguageController extends Controller
         
         return view('admin.languages', [
             'id' => $id,
+            'count' => $count,
             'language' => $language,
             'languages' => $languages,
             'countries' => $countries,

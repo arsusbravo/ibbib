@@ -44,7 +44,7 @@
             <div class="panel">
                 <div class="panel-hdr">
                     <h2>
-                        {{ __('Available') }} <span class="fw-300"><i>{{ __('languages') }}</i></span>
+                        {{ __('Languages') }} <span class="fw-300"><i>{{ __('Found') }}: {{ $count }} items</i></span>
                     </h2>
                 </div>
                 <div class="panel-container show">
@@ -65,7 +65,8 @@
                                     </td>
                                     <td><a href="{{ url('admin/languages/'.$lang->id.($apphelper->queryToURL(\Request::query()))) }}">{{ $lang->name }}</td>
                                     <td>{{ $lang->code }}</td>
-                                    <td>
+                                    <td class="text-right">
+                                        <a href="{{ url('admin/languages/activate/'.$lang->id.($apphelper->queryToURL(\Request::query()))) }}" class="btn btn-xs btn-{{ $lang->active ? 'danger': 'success' }}"><i class="fal fa-{{ $lang->active ? 'power-off': 'check' }}"></i> {{ $lang->active ? __('Deactivate'): __('activate') }}</a>
                                         <a href="{{ url('admin/languages/'.$lang->id.($apphelper->queryToURL(\Request::query()))) }}" class="btn btn-xs btn-default"><i class="fal fa-edit"></i> {{ __('Edit') }}</a>
                                     </td>
                                 </tr>
@@ -85,6 +86,13 @@
                         <h2>
                             {{ __('Language') }} <span class="fw-300"><i>{{ !$id ? __('Add language'): __('Edit language') }}</i></span>
                         </h2>
+                        @if (!is_null($language))
+                            <div class="panel-toolbar">
+                                <a href="{{ url('admin/languages') }}" class="btn btn-xs btn-default">
+                                    <i class="fal fa-plus"></i> {{ __('Add new') }}
+                                </a>
+                            </div>
+                        @endif
                     </div>
                     <div class="panel-container show">
                         <div class="panel-content">
@@ -99,7 +107,7 @@
                             </div>
                             <div class="form-group">
                                 <label class="form-label" for="code">{{ __('Language code') }}</label>
-                                <input type="text" id="code" name="code" class="form-control" placeholder="{{ __('Code') }}" value="{!! !is_null($language) ? $language->code: old('code') !!}">
+                                <input type="text" id="code" name="code" class="form-control" placeholder="{{ __('2 digits code') }}" value="{!! !is_null($language) ? $language->code: old('code') !!}">
                             </div>
                             <div class="form-group">
                                 <label class="form-label" for="thumbnails">{{ __('Flag') }}</label>
@@ -112,6 +120,13 @@
                                         @endif
                                     @endforeach
                                 </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="thumbnails">{{ __('Activation') }}</label>
+                                <div class="custom-control custom-switch">
+                                    <input type="checkbox" class="custom-control-input" name="active" id="activation"{{ !is_null($language) && $language->active || is_null($language) ? ' checked': null }}>
+                                    <label class="custom-control-label" for="activation">{{ __('Activated') }}</label>
+                                </div>
                             </div>
                         </div>
                     </div>

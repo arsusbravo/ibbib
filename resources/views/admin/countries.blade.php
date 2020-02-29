@@ -27,7 +27,7 @@
             <div class="panel">
                 <div class="panel-hdr">
                     <h2>
-                        {{ __('Country') }} <span class="fw-300"><i>List</i></span>
+                        {{ __('Country') }} <span class="fw-300"><i>Found: {{ $count }} items</i></span>
                     </h2>
                 </div>
                 <div class="panel-container show">
@@ -68,6 +68,13 @@
                         <h2>
                             {{ __('Country') }} <span class="fw-300"><i>{{ !$id ? __('Add country'): __('Edit country') }}</i></span>
                         </h2>
+                        @if (!is_null($country))
+                            <div class="panel-toolbar">
+                                <a href="{{ url('admin/countries') }}" class="btn btn-xs btn-default">
+                                    <i class="fal fa-plus"></i> {{ __('Add new') }}
+                                </a>
+                            </div>
+                        @endif
                     </div>
                     <div class="panel-container show">
                         <div class="panel-content">
@@ -85,7 +92,10 @@
                                 @if (!is_null($country) && \File::exists(public_path('themes/frontpage/images/flags/sm/'. $country->country_code.'.png')))
                                     : <img src="{{ url('themes/frontpage/images/flags/sm/'. $country->country_code.'.png') }}" class="img-fluid"> {{ __('change') }}
                                 @endif</label>
-                                <input type="file" id="thumbnails" name="thumbnails" class="form-control" placeholder="{{ __('Code') }}">
+                                <div class="custom-file">
+                                    <input type="file" name="thumbnails" class="custom-file-input" id="thumbnails" aria-describedby="inputGroupFileAddon01">
+                                    <label class="custom-file-label" for="thumbnails">{{ __('Choose file') }}</label>
+                                </div>
                             </div>
                         </div>
                     </div>

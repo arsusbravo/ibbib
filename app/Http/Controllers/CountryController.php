@@ -23,8 +23,20 @@ class CountryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id=0){
-        $countries = Country::orderBy('country_name')->paginate(10);
+    public function index(Request $request, $id=0){
+        $countries = Country::where(function($query) use ($request){
+            if($request->query('search')){
+                $search = $request->query('search');
+                $query->where(function($q) use ($search){
+                    $q->orWhere('country_name', 'LIKE', '%'.$search.'%');
+                    $q->orWhere('country_code', '%'.$search.'%');
+                });
+            }
+            $query->orderBy('country_name');
+        });
+        $count = $countries->count();
+        $countries = $countries->paginate(10);
+        
         $country = null;
         if($id){
             $country = Country::find($id);
@@ -32,6 +44,7 @@ class CountryController extends Controller
         
         return view('admin.countries', [
             'id' => $id,
+            'count' => $count,
             'country' => $country,
             'countries' => $countries,
             'apphelper' => new AppHelper,

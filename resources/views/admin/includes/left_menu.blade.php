@@ -11,24 +11,24 @@
             <span class="nav-link-text">Projects</span>
         </a>
     </li>
-    <li {!! strpos(\Request::path(), 'admin/role/') !== false ? 'class="active open"': '' !!}>
+    <li {!! strpos(\Request::path(), 'admin/user') !== false ? 'class="active open"': '' !!}>
         <a href="#" title="Users" data-filter-tags="users">
             <i class="fal fa-users"></i>
             <span class="nav-link-text">Users</span>
         </a>
         <ul>
-            <li>
-                <a href="{{ url('admin/role/customers') }}" title="Agencies" data-filter-tags="users agencies">
+            <li {!! \Request::path() == 'admin/users/customer' ? 'class="active"': '' !!}>
+                <a href="{{ url('admin/users/customer') }}" title="Agencies" data-filter-tags="users agencies">
                     <span class="nav-link-text">Agencies</span>
                 </a>
             </li>
-            <li>
-                <a href="{{ url('admin/role/crews') }}" title="Translators" data-filter-tags="users translators">
+            <li {!! \Request::path() == 'admin/users/crew' ? 'class="active"': '' !!}>
+                <a href="{{ url('admin/users/crew') }}" title="Translators" data-filter-tags="users translators">
                     <span class="nav-link-text">Translators</span>
                 </a>
             </li>
-            <li>
-                <a href="{{ url('admin/role/admin') }}" title="Management" data-filter-tags="users admin">
+            <li {!! \Request::path() == 'admin/users/admin' ? 'class="active"': '' !!}>
+                <a href="{{ url('admin/users/admin') }}" title="Management" data-filter-tags="users admin">
                     <span class="nav-link-text">Management</span>
                 </a>
             </li>
@@ -37,7 +37,7 @@
     <li {!! \Request::path() == 'admin/messages' ? 'class="active"': '' !!}>
         <a href="{{ url('admin/messages') }}" title="Communications" data-filter-tags="communications messages">
             <i class="fal fa-comments"></i>
-            <span class="nav-link-text">Communications</span>
+            <span class="nav-link-text">Messages</span>
         </a>
     </li>
     <li {!! \Request::path() == 'admin/skills' ? 'class="active"': '' !!}>
@@ -54,10 +54,9 @@
     </li>
     <li {!! strpos(\Request::path(), 'admin/countries') !== false ||
             strpos(\Request::path(), 'admin/languages') !== false ||
-            \Request::path() == 'admin/contents' ||
-            \Request::path() == 'admin/categories' ||
-            \Request::path() == 'admin/roles' ||
-            \Request::path() == 'admin/users' ? 'class="open active"': '' !!}>
+            strpos(\Request::path(), 'admin/contents') !== false ||
+            strpos(\Request::path(), 'admin/categories') !== false ||
+            strpos(\Request::path(), 'admin/roles') !== false ? 'class="open active"': '' !!}>
         <a href="#" title="Settings" data-filter-tags="settings">
             <i class="fal fa-cogs"></i>
             <span class="nav-link-text">Settings</span>
@@ -73,17 +72,17 @@
                     <span class="nav-link-text">Languages</span>
                 </a>
             </li>
-            <li {!! \Request::path() == 'admin/contents' ? 'class="active"': '' !!}>
+            <li {!! strpos(\Request::path(), 'admin/contents') !== false ? 'class="active"': '' !!}>
                 <a href="{{ url('admin/contents') }}" title="Content" data-filter-tags="content settings dashboard">
                     <span class="nav-link-text">Content text</span>
                 </a>
             </li>
-            <li {!! \Request::path() == 'admin/categories' ? 'class="active"': '' !!}>
+            <li {!! strpos(\Request::path(), 'admin/categories') !== false ? 'class="active"': '' !!}>
                 <a href="{{ url('admin/categories') }}" title="Categories" data-filter-tags="categories settings dashboard">
                     <span class="nav-link-text">Categories</span>
                 </a>
             </li>
-            <li {!! \Request::path() == 'admin/roles' ? 'class="active"': '' !!}>
+            <li {!! strpos(\Request::path(), 'admin/roles') !== false ? 'class="active"': '' !!}>
                 <a href="{{ url('admin/roles') }}" title="Roles" data-filter-tags="users roles settings dashboard">
                     <span class="nav-link-text">Roles</span>
                 </a>

@@ -38,15 +38,11 @@ Route::group(['prefix' => 'admin',  'middleware' => ['master', 'admin', 'worker'
 
     Route::post('skill',                                'SkillController@store');
     Route::post('skill/{id}',                           'SkillController@update');
-    Route::get('skill/{id}',                            'SkillController@edit');
-    Route::get('skill',                                 'SkillController@create');
-    Route::get('skills',                                'SkillController@index');
+    Route::get('skills/{id?}',                          'SkillController@index');
 
     Route::post('price',                                'PriceController@store');
     Route::post('price/{id}',                           'PriceController@update');
-    Route::get('price/{id}',                            'PriceController@edit');
-    Route::get('price',                                 'PriceController@create');
-    Route::get('prices',                                'PriceController@index');
+    Route::get('prices/{id?}',                          'PriceController@index');
 
 
     Route::post('project',                              'ProjectController@store');
@@ -55,12 +51,14 @@ Route::group(['prefix' => 'admin',  'middleware' => ['master', 'admin', 'worker'
     Route::get('project',                               'ProjectController@create');
     Route::get('projects',                              'AdminController@projects');
 
-    Route::get('role/users/{slug}',                     'AdminController@users');
+    Route::post('crew/{id?}',                           'UserController@crew');
+    Route::post('admin/{id?}',                          'UserController@admin');
+    Route::post('customer/{id?}',                       'UserController@customer');
+
     Route::post('user',                                 'UserController@store');
     Route::post('user/{id}',                            'UserController@update');
     Route::get('user/{id}',                             'UserController@edit');
-    Route::get('user',                                  'UserController@create');
-    Route::get('users',                                 'UserController@index');
+    Route::get('users/{slug?}',                         'UserController@index');
     
     Route::get('/',                                     'AdminController@index');
 });
