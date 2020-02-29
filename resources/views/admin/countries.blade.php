@@ -34,16 +34,22 @@
                     <div class="panel-content">
                         <table class="table table-striped">
                             <tr class="bg-primary">
+                                <th>&nbsp;</th>
                                 <th>{{ __('Country name') }}</th>
                                 <th>{{ __('Country code') }}</th>
                                 <th>{{ __('Actions') }}</th>
                             </tr>
                             @foreach ($countries as $c)
                                 <tr>
-                                    <td><a href="{{ url('admin/countries/'.$c->id) }}">{{ $c->country_name }}</td>
+                                    <td>
+                                        @if (\File::exists(public_path('themes/frontpage/images/flags/sm/'. $c->country_code.'.png')))
+                                            <img src="{{ url('themes/frontpage/images/flags/sm/'. $c->country_code.'.png') }}" class="img-fluid"> 
+                                        @endif
+                                    </td>
+                                    <td><a href="{{ url('admin/countries/'.$c->id.($apphelper->queryToURL(\Request::query()))) }}">{{ $c->country_name }}</td>
                                     <td>{{ $c->country_code }}</td>
                                     <td>
-                                        <a href="{{ url('admin/countries/'.$c->id) }}" class="btn btn-xs btn-default"><i class="fal fa-edit"></i> {{ __('Edit') }}</a>
+                                        <a href="{{ url('admin/countries/'.$c->id.($apphelper->queryToURL(\Request::query()))) }}" class="btn btn-xs btn-default"><i class="fal fa-edit"></i> {{ __('Edit') }}</a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -56,7 +62,7 @@
             </div>
         </div>
         <div class="col-md-6">
-            <form action="{{ url('country'. ($id ? '/'.$id: null)) }}" method="POST">
+            <form action="{{ url('country'. ($id ? '/'.$id: null).($apphelper->queryToURL(\Request::query()))) }}" method="POST">
                 <div class="panel">
                     <div class="panel-hdr">
                         <h2>
@@ -73,6 +79,13 @@
                             <div class="form-group">
                                 <label class="form-label" for="country_code">{{ __('Country code') }}</label>
                                 <input type="text" id="country_code" name="country_code" class="form-control" placeholder="{{ __('Code') }}" value="{!! !is_null($country) ? $country->country_code: old('country_code') !!}">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="thumbnails">{{ __('Flag') }}
+                                @if (!is_null($country) && \File::exists(public_path('themes/frontpage/images/flags/sm/'. $country->country_code.'.png')))
+                                    : <img src="{{ url('themes/frontpage/images/flags/sm/'. $country->country_code.'.png') }}" class="img-fluid"> {{ __('change') }}
+                                @endif</label>
+                                <input type="file" id="thumbnails" name="thumbnails" class="form-control" placeholder="{{ __('Code') }}">
                             </div>
                         </div>
                     </div>

@@ -18,33 +18,23 @@ Route::group(['prefix' => 'admin',  'middleware' => ['master', 'admin', 'worker'
 
     Route::post('language',                             'LanguageController@store');
     Route::post('language/{id}',                        'LanguageController@update');
-    Route::get('language/{id}',                         'LanguageController@edit');
-    Route::get('language',                              'LanguageController@create');
-    Route::get('languages',                             'LanguageController@index');
+    Route::get('languages/{id?}',                       'LanguageController@index');
 
     Route::post('content',                              'ContentController@store');
     Route::post('content/{id}',                         'ContentController@update');
-    Route::get('content/{id}',                          'ContentController@edit');
-    Route::get('content',                               'ContentController@create');
-    Route::get('contents',                              'ContentController@index');
+    Route::get('contents/{id?}',                        'ContentController@index');
 
     Route::post('category',                             'CategoryController@store');
     Route::post('category/{id}',                        'CategoryController@update');
-    Route::get('category/{id}',                         'CategoryController@edit');
-    Route::get('category',                              'CategoryController@create');
-    Route::get('categories',                            'CategoryController@index');
+    Route::get('categories/{id?}',                      'CategoryController@index');
 
     Route::post('role',                                 'RoleController@store');
     Route::post('role/{id}',                            'RoleController@update');
-    Route::get('role/{id}',                             'RoleController@edit');
-    Route::get('role',                                  'RoleController@create');
-    Route::get('roles',                                 'RoleController@index');
+    Route::get('roles/{id?}',                           'RoleController@index');
 
     Route::post('message',                              'AdminMessageController@store');
     Route::post('message/{id}',                         'AdminMessageController@update');
-    Route::get('message/{id}',                          'AdminMessageController@edit');
-    Route::get('message',                               'AdminMessageController@create');
-    Route::get('messages',                              'AdminMessageController@index');
+    Route::get('messages/{id?}',                        'AdminMessageController@index');
 
     Route::post('skill',                                'SkillController@store');
     Route::post('skill/{id}',                           'SkillController@update');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Country;
+use App\Helpers\AppHelper;
 
 class CountryController extends Controller
 {
@@ -23,7 +24,7 @@ class CountryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index($id=0){
-        $countries = Country::orderBy('country_name')->paginate(25);
+        $countries = Country::orderBy('country_name')->paginate(10);
         $country = null;
         if($id){
             $country = Country::find($id);
@@ -33,6 +34,7 @@ class CountryController extends Controller
             'id' => $id,
             'country' => $country,
             'countries' => $countries,
+            'apphelper' => new AppHelper,
         ]);
     }
 }

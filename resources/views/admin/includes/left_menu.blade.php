@@ -53,7 +53,7 @@
         </a>
     </li>
     <li {!! strpos(\Request::path(), 'admin/countries') !== false ||
-            \Request::path() == 'admin/languages' ||
+            strpos(\Request::path(), 'admin/languages') !== false ||
             \Request::path() == 'admin/contents' ||
             \Request::path() == 'admin/categories' ||
             \Request::path() == 'admin/roles' ||
@@ -68,7 +68,7 @@
                     <span class="nav-link-text">Countries</span>
                 </a>
             </li>
-            <li {!! \Request::path() == 'admin/languages' ? 'class="active"': '' !!}>
+            <li {!! strpos(\Request::path(), 'admin/languages') !== false ? 'class="active"': '' !!}>
                 <a href="{{ url('admin/languages') }}" title="Languages" data-filter-tags="languages settings dashboard">
                     <span class="nav-link-text">Languages</span>
                 </a>
@@ -86,11 +86,6 @@
             <li {!! \Request::path() == 'admin/roles' ? 'class="active"': '' !!}>
                 <a href="{{ url('admin/roles') }}" title="Roles" data-filter-tags="users roles settings dashboard">
                     <span class="nav-link-text">Roles</span>
-                </a>
-            </li>
-            <li {!! \Request::path() == 'admin/users' ? 'class="active"': '' !!}>
-                <a href="{{ url('admin/users') }}" title="Roles" data-filter-tags="users settings dashboard">
-                    <span class="nav-link-text">Users</span>
                 </a>
             </li>
         </ul>
