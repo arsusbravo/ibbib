@@ -26,7 +26,7 @@
                                 <span>{!! $cert->title !!}</span>
                                 <ul class="tr-list">
                                     <li>Year issued: {!! $cert->issued !!}</li>
-                                    <li>Translation: {!! $cert->language_to ? $cert->languageFrom->name.' - '.$cert->languageTo->name: $cert->languageFrom->name !!}</li>
+                                    <li>Translation: {!! $cert->language_to ? $cert->transFrom->name.' - '.$cert->transTo->name: $cert->transFrom->name !!}</li>
                                 </ul>
                                 @if ($cert->description)
                                     <p>{!! nl2br($cert->description) !!}</p>

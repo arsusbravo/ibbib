@@ -7,10 +7,10 @@
             </div>
             <div class="media-body">
                 <span class="tr-title">{{ __('Title') }}</span>
-                <input class="form-control" name="objective" placeholder="{{ __('Title of your resume') }}"
+                <input class="form-control objective" name="objective" placeholder="{{ __('Title of your resume') }}"
                     value="{!! $user->crew->objective ? $user->crew->objective: '' !!}">
                 <span class="tr-title">{{ __('Motivation') }}</span>
-                <textarea name="motivation" class="form-control" rows="10"
+                <textarea name="motivation" class="form-control motivation" rows="10"
                     placeholder="{{ __('Fill in your marketing words') }}">{!! $user->crew->resume ? $user->crew->resume: '' !!}</textarea>
             </div>
         </li>
@@ -25,7 +25,7 @@
                         <label>{{ __('Display Name') }}<span class="pull-right">:</span> </label>
                     </div>
                     <div class="col-sm-8">
-                        <input class="form-control" name="name" value="{{ $user->name }}" required>
+                        <input class="form-control name" readonly name="name" value="{{ $user->name }}" required>
                     </div>
                 </div>
                 <div class="row mt-3">
@@ -33,7 +33,7 @@
                         <label>{{ __('Phone number') }}<span class="pull-right">:</span> </label>
                     </div>
                     <div class="col-sm-8">
-                        <input class="form-control" name="phone" value="{{ $user->crew->co_phone }}">
+                        <input class="form-control phone" name="phone" value="{{ $user->crew->co_phone }}">
                     </div>
                 </div>
                 <div class="row mt-3">
@@ -41,7 +41,7 @@
                         <label>{{ __('Country/Location') }}<span class="pull-right">:</span> </label>
                     </div>
                     <div class="col-sm-8">
-                        <select class="form-control" name="country_id">
+                        <select class="form-control country_id" name="country_id">
                             <option value="0">{{ __('Choose a country') }}</option>
                             @foreach ($countries as $country)
                             <option value="{{ $country->id }}" {{$selectedCountry == $country->id ? 'selected' : '' }}>
@@ -59,11 +59,11 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1">&#36;</span>
                             </div>
-                            <input class="form-control" name="standard_rates" value="{{ $user->crew->standard_rates }}">
+                            <input class="form-control standard_rates" name="standard_rates" value="{{ $user->crew->standard_rates }}">
                         </div>
                     </div>
                     <div class="col-sm-4">
-                        <select class="form-control" name="unit_rate">
+                        <select class="form-control unit_rate" name="unit_rate">
                             <option value="word" {{  $user->crew->unit_rate == 'word' ? 'selected' : '' }}>
                                 {{ __('word') }} </option>
                             <option value="hour" {{ $user->crew->unit_rate == 'hour' ? 'selected' : '' }}>
@@ -77,38 +77,42 @@
             <div class="icon">
                 <i class="fa fa-briefcase" aria-hidden="true"></i>
             </div>
-            <div class="media-body additem-work" class="form-group">
+            <div class="media-body form-group additem-work" >
                 <span class="tr-title">Certificates</span>
-                <div id="addhistory" class="additem">
+                <div class="certificates-wrapper">
+                    @foreach ($user->crew->Certificates as $k=>$item)
+                <div id="addhistory{{ $k>0 ? $k: null }}" class="additem">
                     <span id="clone" class="icon clone"><i class="fa fa-plus" aria-hidden="true"></i></span>
                     <span class="icon remove"><i class="fa fa-times" aria-hidden="true"></i></span>
                     <div class="code-edit-small">
                         <label>{{ __('Title') }}</label>
-                        <input class="form-control" name="title[]" id="cert-title">
+                    <input class="form-control cert-title" value="{{ $item->title }}" name="title[]">
                         <label>{{ __('Description') }}</label>
-                        <textarea class="form-control" name="description[]" id="cert-description"></textarea>
+                        <textarea class="form-control cert-description" name="description[]" >{{ $item->description }}</textarea>
                         <div class="row">
                             <div class="col-sm-4 col-md-4">
                                 <label>From</label>
-                                <select name="language_from[]" class="form-control">
+                                <select name="language_from[]" class="form-control cert-langFrom">
                                     <option value="0">{{ __('Choose a language') }}</option>
                                     @foreach ($languages as $lang)
-                                    <option value="{{ $lang->id }}" id="cert-langFrom">{!! $lang->name !!}</option>
+                                    <option value="{{ $lang->id }}" {{$item->language_from == $lang->id ? 'selected' : '' }}>
+                                        {{ $lang->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="col-sm-4 col-md-4">
                                 <label>To</label>
-                                <select name="language_to[]" class="form-control">
+                                <select name="language_to[]" class="form-control cert-langTo">
                                     <option value="0">{{ __('Choose a language') }}</option>
                                     @foreach ($languages as $lang)
-                                    <option value="{{ $lang->id }}" id="cert-langTo">{!! $lang->name !!}</option>
+                                    <option value="{{ $lang->id }}" {{$item->language_to == $lang->id ? 'selected' : '' }}>
+                                        {{ $lang->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="col-sm-4 col-md-4">
                                 <label>{{ __('Year issued')}}</label>
-                                <select name="issued[]" class="form-control">
+                                <select name="issued[]" class="form-control cert_year">
                                     @for ($y=\Carbon\Carbon::now()->year; $y>=\Carbon\Carbon::now()->subYears(50)->year;
                                     $y--)
                                     <option value="{{ $y }}">{!! $y !!}</option>
@@ -118,6 +122,9 @@
                         </div>
                     </div>
                 </div>
+                @endforeach
+                </div>
+              
             </div>
         </li><!-- /.work-history -->
         <li class="education-background">
@@ -132,7 +139,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <label>Translation from:</label>
-                            <select name="from[]" class="form-control">
+                            <select name="from[]" class="form-control edu-langFrom">
                                 <option value="0">{{ __('Choose a language') }}</option>
                                 @foreach ($languages as $lang)
                                 <option value="{{ $lang->id }}">{!! $lang->name !!}</option>
@@ -141,7 +148,7 @@
                         </div>
                         <div class="col-md-4">
                             <label>Translate in to:</label>
-                            <select name="to[]" class="form-control">
+                            <select name="to[]" class="form-control edu-langTo">
                                 <option value="0">{{ __('Choose a language') }}</option>
                                 @foreach ($languages as $lang)
                                 <option value="{{ $lang->id }}">{!! $lang->name !!}</option>
@@ -167,7 +174,7 @@
                         </div>
                     </div>
                     <label>{{ __('Description') }}</label>
-                    <textarea class="form-control" name="description[]"
+                    <textarea class="form-control edu-description" name="description[]"
                         placeholder="{{ __('Description') }}"></textarea>
                 </div><!-- /.additem -->
             </div>
@@ -178,7 +185,7 @@
             </div>
             <div class="media-body">
                 <span class="tr-title">{{ __('Additional information') }}</span>
-                <textarea name="additional_info" class="form-control" rows="10"
+                <textarea name="additional_info" class="form-control additional_info" rows="10"
                     placeholder="{{ __('Additional information') }}">{{ $user->crew->additional_info }}</textarea>
             </div>
         </li><!-- /.personal-deatils -->

@@ -159,26 +159,66 @@ jQuery(function ($) {
         });
 
         $(document).on('click', '.save_profile', function (e) {
+            let addItemCert={};
+            let addItemEdu={};
+            let formData={};
             e.preventDefault();
-            var $form = $(this);
-            var url = $form.attr("action");
-            console.log($form);
+            let $form = $(this);
+            let url = $form.attr("action");
+          
+            $('.education-background .additem').each(function(i, e){
+                addItemEdu[i] = {
+                    " edu_description": $('.edu-description', e).val(),
+                    " edu_langFrom": $('.edu-langFrom', e).val(),
+                    " edu_langTo": $('.edu-langTo', e).val(),
+                }
+            });
+
+            $('.work-history .additem').each(function(i, e){
+                addItemCert[i] = {
+                    "title_cert": $('.cert-title', e).val(),
+                    "description_cert": $('.cert-description', e).val(),
+                    "cert_langFrom": $('.cert-langFrom', e).val(),
+                    "cert_langTo": $('.cert-langTo', e).val(),
+                    "cert_year": $('.cert_year', e).val(),
+                }
+            });
+
+            console.log(addItemCert);
+            formData = {
+                "objective": $('.objective').val(),
+                "motivation": $('.motivation').val(),
+                "name": $('.name').val(),
+                "phone": $('.phone').val(),
+                "country_id": $('.country_id').val(),
+                "standard_rates": $('.standard_rates').val(),
+                "unit_rate": $('.unit_rate').val(),
+                "additional_info": $('.additional_info').val(),
+                "languageSkills": addItemEdu,
+                "certificates": addItemCert,
+
+            };
+           
             $.ajaxSetup({
                 headers: {
                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
               });
-            jQuery.ajax({
+              console.log(formData);
+
+             
+            $.ajax({
                 url: url,
                 type: 'post',
-                data: {
-                    title_cert: jQuery('#cert-title').val(),
-                    description_cert: jQuery('#cert-description').val(),
-                    cert_langFrom: jQuery('#cert-langFrom').val(),
-                    cert_langTo: jQuery('#cert-langTo').val()
-                },
+                data: formData,
+                dataType:'json',
                 success: function (data) {
                     console.log(data);
+                    console.log("success");
+                },
+                error: function (xhr,error) {
+                   console.log(error);
+                   $('body').html(xhr.responseText);
                 }
 
             });

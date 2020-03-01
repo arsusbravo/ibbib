@@ -45,21 +45,38 @@ class CrewController extends Controller
     }
 
     public function update(Request $request){
+        $certificates = array();
         $user = \Auth::user();
         $updatedUser = User::find($user->id);
-        $crewId = Crew::find($updatedUser->crew->id);
-        $Newcertificate = new Certificate;
-        $Newcertificate->title = $request->title_cert;
-        $Newcertificate->crew_id = $crewId->id;
-        $Newcertificate->description = $request->description_cert;
-        $Newcertificate->language_from = $request->cert_langFrom;
-        $Newcertificate->language_to = $request->cert_langTo;
-        $Newcertificate->save();
-        if ($Newcertificate->save()) {
-            return response()->json($Newcertificate);
-        }
-    
+        $updatedUser->name = $request->name;
+        $updatedUser->save();
 
+        $updatedCrew = Crew::find($updatedUser->crew->id);
+        $updatedCrew->objective = $request->objective;
+        $updatedCrew->resume = $request->motivation;
+        $updatedCrew->co_phone = $request->phone;
+        $updatedCrew->standard_rates = $request->standard_rates;
+        $updatedCrew->additional_info = $request->additional_info;
+        $updatedCrew->unit_rate = $request->unit_rate;
+        $updatedCrew->country_id = $request->country_id;
+        $updatedCrew->save();
+            
+        $crewId = Crew::find($updatedUser->crew->id);
+       
+      
+        foreach($request->certificates as $certificate){
+            $Newcertificate = new Certificate;
+            $Newcertificate->title = $certificate['title_cert'];
+            $Newcertificate->crew_id = $updatedCrew->id;
+            $Newcertificate->description = $certificate['description_cert'];
+            $Newcertificate->language_from = $certificate['cert_langFrom'];
+            $Newcertificate->language_to = $certificate['cert_langTo'];
+            $Newcertificate->issued = $certificate['cert_year'];
+            $Newcertificate->save();
+        }
+        if ($updatedCrew->save()) {
+            return response()->json($updatedCrew);
+        }
     }
 
     // public function update(Request $request)
