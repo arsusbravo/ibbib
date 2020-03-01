@@ -49,7 +49,7 @@ Route::group(['prefix' => 'admin',  'middleware' => ['master', 'admin', 'worker'
     Route::post('project/{id}',                         'ProjectController@update');
     Route::get('project/{id}',                          'ProjectController@edit');
     Route::get('project',                               'ProjectController@create');
-    Route::get('projects',                              'AdminController@projects');
+    Route::get('projects',                              'ProjectController@index');
 
     Route::post('crew/{id?}',                           'UserController@crew');
     Route::post('admin/{id?}',                          'UserController@admin');

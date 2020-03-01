@@ -30,9 +30,13 @@ class ProjectController extends Controller
         }
         if(\Auth::check()){
             $user = \Auth::user();
-            $hasResume = !$user->crew->resume ? false: true;
+            $hasResume = !$user->crew || $user->crew && !$user->crew->resume ? false: true;
             if($user->role->slug == 'crew'){
                 $blade = 'user.jobs';
+            }elseif($user->role->slug == 'customer'){
+                $blade = 'front.projects';
+            }else{
+                $blade = 'admin.projects';
             }
         }else{
             $user = null;
