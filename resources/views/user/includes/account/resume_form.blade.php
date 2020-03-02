@@ -59,7 +59,8 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1">&#36;</span>
                             </div>
-                            <input class="form-control standard_rates" name="standard_rates" value="{{ $user->crew->standard_rates }}">
+                            <input class="form-control standard_rates" name="standard_rates"
+                                value="{{ $user->crew->standard_rates }}">
                         </div>
                     </div>
                     <div class="col-sm-4">
@@ -77,54 +78,104 @@
             <div class="icon">
                 <i class="fa fa-briefcase" aria-hidden="true"></i>
             </div>
-            <div class="media-body form-group additem-work" >
+            <div class="media-body form-group additem-work">
                 <span class="tr-title">Certificates</span>
-                <div class="certificates-wrapper">
+                <div class="certificates-wrapper" id="certificateList">
+                    @if ($user->crew->Certificates->count())
                     @foreach ($user->crew->Certificates as $k=>$item)
-                <div id="addhistory{{ $k>0 ? $k: null }}" class="additem">
-                    <span id="clone" class="icon clone"><i class="fa fa-plus" aria-hidden="true"></i></span>
-                    <span class="icon remove"><i class="fa fa-times" aria-hidden="true"></i></span>
-                    <div class="code-edit-small">
-                        <label>{{ __('Title') }}</label>
-                    <input class="form-control cert-title" value="{{ $item->title }}" name="title[]">
-                        <label>{{ __('Description') }}</label>
-                        <textarea class="form-control cert-description" name="description[]" >{{ $item->description }}</textarea>
-                        <div class="row">
-                            <div class="col-sm-4 col-md-4">
-                                <label>From</label>
-                                <select name="language_from[]" class="form-control cert-langFrom">
-                                    <option value="0">{{ __('Choose a language') }}</option>
-                                    @foreach ($languages as $lang)
-                                    <option value="{{ $lang->id }}" {{$item->language_from == $lang->id ? 'selected' : '' }}>
-                                        {{ $lang->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-sm-4 col-md-4">
-                                <label>To</label>
-                                <select name="language_to[]" class="form-control cert-langTo">
-                                    <option value="0">{{ __('Choose a language') }}</option>
-                                    @foreach ($languages as $lang)
-                                    <option value="{{ $lang->id }}" {{$item->language_to == $lang->id ? 'selected' : '' }}>
-                                        {{ $lang->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-sm-4 col-md-4">
-                                <label>{{ __('Year issued')}}</label>
-                                <select name="issued[]" class="form-control cert_year">
-                                    @for ($y=\Carbon\Carbon::now()->year; $y>=\Carbon\Carbon::now()->subYears(50)->year;
-                                    $y--)
-                                    <option value="{{ $y }}">{!! $y !!}</option>
-                                    @endfor
-                                </select>
+                    <div id="addhistory{{ $k>0 ? $k: null }}" class="additem">
+                        <span id="clone" class="icon clone"><i class="fa fa-plus" aria-hidden="true"></i></span>
+                        <span class="icon remove"><i class="fa fa-times" aria-hidden="true"></i></span>
+                        <div class="code-edit-small">
+                            <label>{{ __('Title') }}</label>
+                            <input class="form-control cert-title" value="{{ $item->title }}" name="title[]">
+                            <label>{{ __('Description') }}</label>
+                            <textarea class="form-control cert-description"
+                                name="description[]">{{ $item->description }}</textarea>
+                            <div class="row">
+                                <div class="col-sm-4 col-md-4">
+                                    <label>From</label>
+                                    <select name="language_from[]" class="form-control cert-langFrom">
+                                        <option value="0">{{ __('Choose a language') }}</option>
+                                        @foreach ($languages as $lang)
+                                        <option value="{{ $lang->id }}"
+                                            {{$item->language_from == $lang->id ? 'selected' : '' }}>
+                                            {{ $lang->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-sm-4 col-md-4">
+                                    <label>To</label>
+                                    <select name="language_to[]" class="form-control cert-langTo">
+                                        <option value="0">{{ __('Choose a language') }}</option>
+                                        @foreach ($languages as $lang)
+                                        <option value="{{ $lang->id }}"
+                                            {{$item->language_to == $lang->id ? 'selected' : '' }}>
+                                            {{ $lang->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-sm-4 col-md-4">
+                                    <label>{{ __('Year issued')}}</label>
+                                    <select name="issued[]" class="form-control cert_year">
+                                        @for ($y=\Carbon\Carbon::now()->year;
+                                        $y>=\Carbon\Carbon::now()->subYears(50)->year;
+                                        $y--)
+                                        <option value="{{ $y }}" {{$item->issued == $y ? 'selected' : '' }}>{!! $y !!}
+                                        </option>
+                                        @endfor
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    @endforeach
+                    @else
+                    <div id="addhistory" class="additem">
+                        <span id="clone" class="icon clone"><i class="fa fa-plus" aria-hidden="true"></i></span>
+                        <span class="icon remove"><i class="fa fa-times" aria-hidden="true"></i></span>
+                        <div class="code-edit-small">
+                            <label>{{ __('Title') }}</label>
+                            <input class="form-control cert-title" name="title[]">
+                            <label>{{ __('Description') }}</label>
+                            <textarea class="form-control cert-description" name="description[]"></textarea>
+                            <div class="row">
+                                <div class="col-sm-4 col-md-4">
+                                    <label>From</label>
+                                    <select name="language_from[]" class="form-control cert-langFrom">
+                                        <option value="0">{{ __('Choose a language') }}</option>
+                                        @foreach ($languages as $lang)
+                                        <option value="{{ $lang->id }}">
+                                            {{ $lang->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-sm-4 col-md-4">
+                                    <label>To</label>
+                                    <select name="language_to[]" class="form-control cert-langTo">
+                                        <option value="0">{{ __('Choose a language') }}</option>
+                                        @foreach ($languages as $lang)
+                                        <option value="{{ $lang->id }}">
+                                            {{ $lang->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-sm-4 col-md-4">
+                                    <label>{{ __('Year issued')}}</label>
+                                    <select name="issued[]" class="form-control cert_year">
+                                        @for ($y=\Carbon\Carbon::now()->year;
+                                        $y>=\Carbon\Carbon::now()->subYears(50)->year;
+                                        $y--)
+                                        <option value="{{ $y }}">{!! $y !!}</option>
+                                        @endfor
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @endif
                 </div>
-                @endforeach
-                </div>
-              
+
             </div>
         </li><!-- /.work-history -->
         <li class="education-background">

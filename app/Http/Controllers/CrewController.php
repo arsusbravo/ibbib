@@ -64,6 +64,7 @@ class CrewController extends Controller
         $crewId = Crew::find($updatedUser->crew->id);
        
       
+        if($request->certificates){
         foreach($request->certificates as $certificate){
             $Newcertificate = new Certificate;
             $Newcertificate->title = $certificate['title_cert'];
@@ -74,6 +75,7 @@ class CrewController extends Controller
             $Newcertificate->issued = $certificate['cert_year'];
             $Newcertificate->save();
         }
+    }
         if ($updatedCrew->save()) {
             return response()->json($updatedCrew);
         }
