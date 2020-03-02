@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Content;
 
 class HomeController extends Controller
 {
@@ -18,18 +19,66 @@ class HomeController extends Controller
     }
 
     public function about(){
-        return view('pages.about');
+        $content = Content::where('slug', 'about')->first();
+        if($content){
+            $meta['title'] = $content->title;
+            $meta['description'] = $content->description;
+            $meta['keywords'] = $content->keywords;
+        }else{
+            $meta = null;
+        }
+
+        return view('pages.about', [
+            'meta' => $meta,
+            'content' => $content,
+        ]);
     }
 
     public function translator(){
-        return view('pages.translator');
+        $content = Content::where('slug', 'translator')->first();
+        if($content){
+            $meta['title'] = $content->title;
+            $meta['description'] = $content->description;
+            $meta['keywords'] = $content->keywords;
+        }else{
+            $meta = null;
+        }
+
+        return view('pages.translator', [
+            'meta' => $meta,
+            'content' => $content,
+        ]);
     }
 
     public function agency(){
-        return view('pages.agency');
+        $content = Content::where('slug', 'agency')->first();
+        if($content){
+            $meta['title'] = $content->title;
+            $meta['description'] = $content->description;
+            $meta['keywords'] = $content->keywords;
+        }else{
+            $meta = null;
+        }
+
+        return view('pages.agency', [
+            'meta' => $meta,
+            'content' => $content,
+        ]);
     }
 
     public function contact(){
-        return view('pages.contact');
+        $content = Content::where('slug', 'contact')->first();
+        if($content){
+            $meta['title'] = $content->title;
+            $meta['description'] = $content->description;
+            $meta['keywords'] = $content->keywords;
+        }else{
+            $meta = null;
+        }
+
+        return view('pages.contact', [
+            'meta' => $meta,
+            'content' => $content,
+        ]);
     }
 }
