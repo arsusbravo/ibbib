@@ -177,59 +177,8 @@
                 </div>
 
             </div>
-        </li><!-- /.work-history -->
-        <li class="education-background">
-            <div class="icon">
-                <i class="fa fa-briefcase" aria-hidden="true"></i>
-            </div>
-            <div class="media-body additem-edu">
-                <span class="tr-title">{{ __('Translation Proficiency') }}</span>
-                <div id="add-edu" class="additem">
-                    <span id="edu-clone" class="icon clone"><i class="fa fa-plus" aria-hidden="true"></i></span>
-                    <span class="icon remove"><i class="fa fa-times" aria-hidden="true"></i></span>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <label>Translation from:</label>
-                            <select name="from[]" class="form-control edu-langFrom">
-                                <option value="0">{{ __('Choose a language') }}</option>
-                                @foreach ($languages as $lang)
-                                <option value="{{ $lang->id }}">{!! $lang->name !!}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="col-md-4">
-                            <label>Translate in to:</label>
-                            <select name="to[]" class="form-control edu-langTo">
-                                <option value="0">{{ __('Choose a language') }}</option>
-                                @foreach ($languages as $lang)
-                                <option value="{{ $lang->id }}">{!! $lang->name !!}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="col-md-4">
-                            <label>{{ __('Level') }}</label>
-                            <div class="rating-star">
-                                <div class="rating">
-                                    <input type="radio" id="star1" name="level[]"><label class="full"
-                                        for="star1"></label>
-                                    <input type="radio" id="star2" name="level[]"><label class="full"
-                                        for="star2"></label>
-                                    <input type="radio" id="star3" name="level[]"><label class="full"
-                                        for="star3"></label>
-                                    <input type="radio" id="star4" name="level[]"><label class="full"
-                                        for="star4"></label>
-                                    <input type="radio" id="star5" name="level[]"><label class="full"
-                                        for="star5"></label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <label>{{ __('Description') }}</label>
-                    <textarea class="form-control edu-description" name="description[]"
-                        placeholder="{{ __('Description') }}"></textarea>
-                </div><!-- /.additem -->
-            </div>
-        </li><!-- /.personal-deatils -->
+        </li>
+       <!-- /.personal-deatils -->
         <li class="personal-deatils">
             <div class="icon">
                 <i class="fa fa-hand-peace-o" aria-hidden="true"></i>
