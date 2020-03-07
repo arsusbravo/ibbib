@@ -55,4 +55,64 @@ class LanguageController extends Controller
             'apphelper' => new AppHelper,
         ]);
     }
+
+    public function update(Request $request, $id){
+        $helper = new AppHelper;
+        $input = $request->all();
+        $updateValidation = [
+            'name' => 'required|max:255',
+            'code' => 'required|max:2'
+        ];
+        $invalid = $helper->isInvalid($input, $updateValidation);
+        if($invalid){
+            return redirect()
+                ->back()
+                ->withErrors($invalid)
+                ->withInput();
+        }
+
+        $update = Language::find($id);
+        $update->name = $input['name'];
+        $update->code = strtoupper(trim($input['code']));
+        $update->original = strtoupper(trim($input['original']));
+        $update->country_id = $input['country_id'];
+        $update->active = isset($input['active']) ? $input['active']: null;
+
+        if($update->save()){
+            return redirect()->back()->with('success_msg', 'Update successful');
+        }else{
+            return redirect()->back()->with('error_msg', 'Update failed');
+        }
+    }
+
+    public function store(Request $request){
+        $helper = new AppHelper;
+        $input = $request->all();
+        $addValidation = [
+            'name' => 'required|max:255',
+            'code' => 'required|max:2'
+        ];
+        $invalid = $helper->isInvalid($input, $addValidation);
+        if($invalid){
+            return redirect()
+                ->back()
+                ->withErrors($invalid)
+                ->withInput();
+        }
+
+        $add = new Language;
+        $add->name = $input['name'];
+        $add->code = strtoupper(trim($input['code']));
+        $add->original = strtoupper(trim($input['original']));
+        $add->country_id = $input['country_id'];
+        if(isset($input['active'])){
+            $add->active =  $input['active'];
+        }
+        
+        if($add->save()){
+            return redirect()->back()->with('success_msg', 'New record added successful');
+        }else{
+            return redirect()->back()->with('error_msg', 'New record failed');
+        }
+    }
 }

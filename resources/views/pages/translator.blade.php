@@ -9,7 +9,7 @@
                 </div>		
                 <ol class="breadcrumb">
                     <li><a href="{{ url('/') }}">Home</a></li>
-                    <li class="active">{{ __('Translator') }}</li>
+                    <li class="active">{{ $content ? $content->title: 'No title' }}</li>
                 </ol>			
             </div>
         </div><!-- /.container -->
@@ -20,7 +20,8 @@
 <div class="page-content">
     <div class="container">
         <div class="section">
-            <h2 class="tr-title">{{ __('I am a translator') }}. {{ __('What does IBBIB jobs mean to me?') }}</h2>
+            <h2 class="tr-title">{{ $content ? $content->title: 'No title' }}</h2>
+            {!! $content ? $content->body: 'There is no content for this page! Please add from admin with slug "translator".' !!}
         </div><!-- /.container -->
     </div><!-- /.container -->
 </div>

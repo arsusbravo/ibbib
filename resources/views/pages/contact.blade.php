@@ -5,11 +5,11 @@
         <div class="container">
             <div class="breadcrumb-info text-center">
                 <div class="page-title">
-                    <h1>{{ __('Contact Us') }}</h1>
+                    <h1>{{ $content ? $content->title: 'No title' }}</h1>
                 </div>		
                 <ol class="breadcrumb">
                     <li><a href="{{ url('/') }}">Home</a></li>
-                    <li class="active">{{ __('Contact Us') }}</li>
+                    <li class="active">{{ $content ? $content->title: 'No title' }}</li>
                 </ol>			
             </div>
         </div><!-- /.container -->
@@ -23,8 +23,8 @@
             <div class="row">
                 <div class="col-md-8">
                     <div class="section">
-                        <span class="tr-title">Contact Info</span>
-                        <p>There are many variations of passages of lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words</p>
+                        <span class="tr-title">{{ $content ? $content->title: 'No title' }}</span>
+                        {!! $content ? $content->body: 'There is no content for this page! Please add from admin with slug "contact".' !!}
                         <form action="#" class="tr-form">
                             <div class="row">
                                 <div class="col-sm-6">

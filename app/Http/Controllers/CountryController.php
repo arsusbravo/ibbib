@@ -50,4 +50,65 @@ class CountryController extends Controller
             'apphelper' => new AppHelper,
         ]);
     }
+
+    public function update(Request $request, $id){
+        $helper = new AppHelper;
+        $input = $request->all();
+        $updateValidation = [
+            'country_name' => 'required|max:255',
+            'country_code' => 'required|max:2'
+        ];
+        $invalid = $helper->isInvalid($input, $updateValidation);
+        if($invalid){
+            return redirect()
+                ->back()
+                ->withErrors($invalid)
+                ->withInput();
+        }
+
+        if(isset($input['thumbnails'])){
+            $helper->resizeSquare($input['thumbnails'], 24, public_path('themes/frontpage/images/flags/sm/'.strtoupper($input['country_code']).'.png'));
+            $helper->resizeSquare($input['thumbnails'], 48, public_path('themes/frontpage/images/flags/md/'.strtoupper($input['country_code']).'.png'));
+        }
+        
+        $update = Country::find($id);
+        $update->country_name = $input['country_name'];
+        $update->country_code = strtoupper(trim($input['country_code']));
+
+        if($update->save()){
+            return redirect()->back()->with('success_msg', 'Update successful');
+        }else{
+            return redirect()->back()->with('error_msg', 'Update failed');
+        }
+    }
+
+    public function store(Request $request){
+        $helper = new AppHelper;
+        $input = $request->all();
+        $addValidation = [
+            'country_name' => 'required|unique:countries|max:255',
+            'country_code' => 'required|unique:countries|max:2',
+            'thumbnails' => 'required'
+        ];
+        $invalid = $helper->isInvalid($input, $addValidation);
+        if($invalid){
+            return redirect()
+                ->back()
+                ->withErrors($invalid)
+                ->withInput();
+        }
+
+        $helper->resizeSquare($input['thumbnails'], 24, public_path('themes/frontpage/images/flags/sm/'.strtoupper($input['country_code']).'.png'));
+        $helper->resizeSquare($input['thumbnails'], 48, public_path('themes/frontpage/images/flags/md/'.strtoupper($input['country_code']).'.png'));
+        
+        $add = new Country;
+        $add->country_name = $input['country_name'];
+        $add->country_code = strtoupper(trim($input['country_code']));
+
+        if($add->save()){
+            return redirect()->back()->with('success_msg', 'New record added successful');
+        }else{
+            return redirect()->back()->with('error_msg', 'New record failed');
+        }
+    }
 }

@@ -60,7 +60,7 @@
             </div>
         </div>
         <div class="col-md-6">
-            <form action="{{ url('content'. ($id ? '/'.$id: null).($apphelper->queryToURL(\Request::query()))) }}" method="POST">
+            <form action="{{ url('admin/content'. ($id ? '/'.$id: null).($apphelper->queryToURL(\Request::query()))) }}" method="POST">
                 <div class="panel">
                     <div class="panel-hdr">
                         <h2>
@@ -79,18 +79,28 @@
                             @csrf
                             <div class="form-group">
                                 <label class="form-label" for="title">{{ __('Content title') }}</label>
-                                <input type="text" id="title" name="title" class="form-control" placeholder="{{ __('Title of the content') }}" value="{!! !is_null($content) ? $content->title: old('title') !!}">
+                                <input type="text" id="title" name="title" class="form-control @error('title') is-invalid @enderror" placeholder="{{ __('Title of the content') }}" value="{!! !is_null($content) ? $content->title: old('title') !!}">
+                                @error('title')
+                                    <div class="invalid-feedback">{{ $message }} </div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="slug">{{ __('Slug') }}</label>
+                                <input type="text" id="slug" name="slug" class="form-control" placeholder="{{ __('Word for URL') }}" value="{!! !is_null($content) ? $content->slug: old('slug') !!}">
                             </div>
                             <div class="form-group">
                                 <label class="form-label" for="description">{{ __('Meta description') }}</label>
-                                <textarea name="description" class="form-control" placeholder="{{ __('Content description for SEO') }}">{!! !is_null($content) ? $content->description: old('description') !!}</textarea>
+                                <textarea name="description" class="form-control @error('description') is-invalid @enderror" placeholder="{{ __('Content description for SEO') }}">{!! !is_null($content) ? $content->description: old('description') !!}</textarea>
+                                @error('description')
+                                    <div class="invalid-feedback">{{ $message }} </div>
+                                @enderror
                             </div>
                             <div class="form-group">
                                 <label class="form-label" for="keywords">{{ __('Meta keywords') }}</label>
                                 <textarea name="keywords" class="form-control" placeholder="{{ __('Keywords for SEO') }}">{!! !is_null($content) ? $content->keywords: old('keywords') !!}</textarea>
                             </div>
                             <div class="form-group">
-                                <label class="form-label" for="language_id">{{ __('Meta keywords') }}</label>
+                                <label class="form-label" for="language_id">{{ __('Language') }}</label>
                                 <select class="form-control" name="language_id" id="language_id">
                                     @foreach ($languages as $lang)
                                         <option value="{{ $lang->id }}">{{ $lang->name }}</option>
@@ -98,13 +108,16 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label class="form-label" for="keywords">{{ __('Body') }}</label>
-                                <textarea name="body" class="summernote" placeholder="{{ __('Content text') }}">{!! !is_null($content) ? $content->body: old('body') !!}</textarea>
+                                <label class="form-label" for="body">{{ __('Body') }}</label>
+                                <textarea name="body" id="body" class="summernote" placeholder="{{ __('Content text') }}">{!! !is_null($content) ? $content->body: old('body') !!}</textarea>
+                                @error('body')
+                                    <div class="invalid-feedback" style="display:block">{{ $message }} </div>
+                                @enderror
                             </div>
                         </div>
                     </div>
                     <div class="panel-content p-2 pb-0 rounded-bottom border-faded border-left-0 border-right-0 border-bottom-0 text-muted">
-                        <button type="button" class="btn btn-lg btn-success waves-effect waves-themed">
+                        <button type="submit" class="btn btn-lg btn-success waves-effect waves-themed">
                             <span class="fal fa-save mr-1"></span>
                             {{ __('Save') }}
                         </button>

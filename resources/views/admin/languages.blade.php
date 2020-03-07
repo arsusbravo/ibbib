@@ -80,7 +80,7 @@
             </div>
         </div>
         <div class="col-md-6">
-            <form action="{{ url('language'. ($id ? '/'.$id: null).($apphelper->queryToURL(\Request::query()))) }}" method="POST">
+            <form action="{{ url('admin/language'. ($id ? '/'.$id: null).($apphelper->queryToURL(\Request::query()))) }}" method="POST">
                 <div class="panel">
                     <div class="panel-hdr">
                         <h2>
@@ -99,7 +99,10 @@
                             @csrf
                             <div class="form-group">
                                 <label class="form-label" for="name">{{ __('Language name') }}</label>
-                                <input type="text" id="name" name="name" class="form-control" placeholder="{{ __('Name') }}" value="{!! !is_null($language) ? $language->name: old('name') !!}">
+                                <input type="text" id="name" name="name" class="form-control @error('name') is-invalid @enderror" placeholder="{{ __('Name') }}" value="{!! !is_null($language) ? $language->name: old('name') !!}">
+                                @error('name')
+                                    <div class="invalid-feedback">{{ $message }} </div>
+                                @enderror
                             </div>
                             <div class="form-group">
                                 <label class="form-label" for="original">{{ __('Origin name') }}</label>
@@ -107,7 +110,10 @@
                             </div>
                             <div class="form-group">
                                 <label class="form-label" for="code">{{ __('Language code') }}</label>
-                                <input type="text" id="code" name="code" class="form-control" placeholder="{{ __('2 digits code') }}" value="{!! !is_null($language) ? $language->code: old('code') !!}">
+                                <input type="text" id="code" name="code" class="form-control @error('code') is-invalid @enderror" placeholder="{{ __('2 digits code') }}" value="{!! !is_null($language) ? $language->code: old('code') !!}">
+                                @error('code')
+                                    <div class="invalid-feedback">{{ $message }} </div>
+                                @enderror
                             </div>
                             <div class="form-group">
                                 <label class="form-label" for="thumbnails">{{ __('Flag') }}</label>
@@ -124,14 +130,14 @@
                             <div class="form-group">
                                 <label class="form-label" for="thumbnails">{{ __('Activation') }}</label>
                                 <div class="custom-control custom-switch">
-                                    <input type="checkbox" class="custom-control-input" name="active" id="activation"{{ !is_null($language) && $language->active || is_null($language) ? ' checked': null }}>
+                                    <input type="checkbox" class="custom-control-input" name="active" id="activation"{{ !is_null($language) && $language->active || is_null($language) ? ' checked': null }} value="1">
                                     <label class="custom-control-label" for="activation">{{ __('Activated') }}</label>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="panel-content p-2 pb-0 rounded-bottom border-faded border-left-0 border-right-0 border-bottom-0 text-muted">
-                        <button type="button" class="btn btn-lg btn-success waves-effect waves-themed">
+                        <button type="submit" class="btn btn-lg btn-success waves-effect waves-themed">
                             <span class="fal fa-save mr-1"></span>
                             {{ __('Save') }}
                         </button>

@@ -738,6 +738,30 @@
                     <!-- the #js-page-content id is needed for some plugins to initialize -->
                     <main id="js-page-content" role="main" class="page-content">
                         @yield('breadcrumbs')
+                        @if (\Session::has('success_msg'))
+                            <div class="alert bg-success-400 text-white alert-dismissible fade show mt-2 mb-2">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true"><i class="fal fa-times-circle"></i></span>
+                                </button>
+                                {{ \Session::get('success_msg') }}
+                            </div>
+                        @endif
+                        @if (\Session::has('error_msg'))
+                            <div class="alert bg-danger-400 text-white alert-dismissible fade show mt-2 mb-2">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true"><i class="fal fa-times-circle"></i></span>
+                                </button>
+                                {{ \Session::get('error_msg') }}
+                            </div>
+                        @endif
+                        @if (\Session::has('info_msg'))
+                            <div class="alert bg-success-400 text-white alert-dismissible fade show mt-2 mb-2">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true"><i class="fal fa-times-circle"></i></span>
+                                </button>
+                                {{ \Session::get('info_msg') }}
+                            </div>
+                        @endif
                         @yield('content')
                     </main>
                     <!-- this overlay is activated only when mobile menu is triggered -->
