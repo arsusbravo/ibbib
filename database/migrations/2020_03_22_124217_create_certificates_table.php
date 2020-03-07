@@ -13,6 +13,7 @@ class CreateCertificatesTable extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('certificates');
         Schema::create('certificates', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->charset = 'utf8';
@@ -22,6 +23,7 @@ class CreateCertificatesTable extends Migration
             $table->unsignedBigInteger('crew_id');
             $table->unsignedInteger('language_from')->nullable()->default(NULL);
             $table->unsignedInteger('language_to')->nullable()->default(NULL);
+            $table->unsignedInteger('degree_id');
             $table->string('title', 100)->nullable()->default(NULL);
             $table->string('slug', 100)->nullable()->default(NULL);
             $table->mediumText('description')->nullable()->default(NULL);
@@ -32,6 +34,7 @@ class CreateCertificatesTable extends Migration
             $table->foreign('crew_id')->references('id')->on('crews');
             $table->foreign('language_from')->references('id')->on('languages')->onDelete('set null')->onUpdate('set null');
             $table->foreign('language_to')->references('id')->on('languages')->onDelete('set null')->onUpdate('set null');
+            $table->foreign('degree_id')->references('id')->on('degrees');
         });
     }
     

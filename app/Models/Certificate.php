@@ -36,4 +36,12 @@ class Certificate extends Model
     {
         return $this->belongsTo('App\Models\Language', 'language_to');
     }
+
+    /**
+     * Get degree.
+     */
+    public function degree()
+    {
+        return $this->belongsTo('App\Models\Degree', 'degree_id');
+    }
 }
