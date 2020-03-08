@@ -44,6 +44,10 @@ Route::group(['prefix' => 'admin',  'middleware' => ['master', 'admin', 'worker'
     Route::post('price/{id}',                           'PriceController@update');
     Route::get('prices/{id?}',                          'PriceController@index');
 
+    Route::post('degree',                               'DegreeController@store');
+    Route::post('degree/{id}',                          'DegreeController@update');
+    Route::get('degrees/{id?}',                         'DegreeController@index');
+
 
     Route::post('project',                              'ProjectController@store');
     Route::post('project/{id}',                         'ProjectController@update');

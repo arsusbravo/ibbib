@@ -76,7 +76,7 @@ class CrewController extends Controller
                 $Newcertificate->language_from = $certificate['cert_langFrom'];
                 $Newcertificate->language_to = $certificate['cert_langTo'];
                 $Newcertificate->issued = $certificate['cert_year'];
-                $Newcertificate->degree_id = $certificate['degree_id'];
+                $Newcertificate->degree_id = $certificate['degree_id'] > 0 ? $certificate['degree_id']: null;
                 $Newcertificate->save();
             }
         }

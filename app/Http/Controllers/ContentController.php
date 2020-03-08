@@ -30,9 +30,9 @@ class ContentController extends Controller
                 $search = $request->query('search');
                 $query->where(function($q) use ($search){
                     $q->orWhere('title', 'LIKE', '%'.$search.'%');
-                    $q->orWhere('description', '%'.$search.'%');
-                    $q->orWhere('keywords', '%'.$search.'%');
-                    $q->orWhere('body', '%'.$search.'%');
+                    $q->orWhere('description', 'LIKE', '%'.$search.'%');
+                    $q->orWhere('keywords', 'LIKE', '%'.$search.'%');
+                    $q->orWhere('body', 'LIKE', '%'.$search.'%');
                 });
             }
             $query->orderBy('id');

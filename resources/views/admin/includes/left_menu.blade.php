@@ -53,9 +53,10 @@
         </a>
     </li>
     <li {!! strpos(\Request::path(), 'admin/countries') !== false ||
-            strpos(\Request::path(), 'admin/languages') !== false ||
-            strpos(\Request::path(), 'admin/contents') !== false ||
+            strpos(\Request::path(), 'admin/language') !== false ||
+            strpos(\Request::path(), 'admin/content') !== false ||
             strpos(\Request::path(), 'admin/categories') !== false ||
+            strpos(\Request::path(), 'admin/degree') !== false ||
             strpos(\Request::path(), 'admin/roles') !== false ? 'class="open active"': '' !!}>
         <a href="#" title="Settings" data-filter-tags="settings">
             <i class="fal fa-cogs"></i>
@@ -80,6 +81,11 @@
             <li {!! strpos(\Request::path(), 'admin/categories') !== false ? 'class="active"': '' !!}>
                 <a href="{{ url('admin/categories') }}" title="Categories" data-filter-tags="categories settings dashboard">
                     <span class="nav-link-text">Categories</span>
+                </a>
+            </li>
+            <li {!! strpos(\Request::path(), 'admin/degrees') !== false ? 'class="active"': '' !!}>
+                <a href="{{ url('admin/degrees') }}" title="Degrees" data-filter-tags="degrees settings dashboard">
+                    <span class="nav-link-text">Degrees</span>
                 </a>
             </li>
             <li {!! strpos(\Request::path(), 'admin/roles') !== false ? 'class="active"': '' !!}>

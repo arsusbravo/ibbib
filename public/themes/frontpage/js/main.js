@@ -110,7 +110,6 @@ jQuery(function ($) {
         let workItems = $(".work-history .additem").length;
         var regex = /^(.*)(\d)+$/i;
         var cloneitem = $("#addhistory").length;
-        console.log(workItems);
         $('#clone').click(function () {
             $('#addhistory').clone()
                 .appendTo('.additem-work')
@@ -163,47 +162,37 @@ jQuery(function ($) {
 
         $(document).on('click', '.save_profile', function (e) {
             e.preventDefault();
-            let newworkItems = $(".work-history .additem").length;
-
-            console.log(workItems);
-
-
-
-            let list = document.getElementById("certificateList");
-
-
+            /* let list = document.getElementById("certificateList");
             for (let i = 1; i <= workItems; i++) {
                 list.removeChild(list.childNodes[i]);
-            }
-
+            } */
 
             let addItemCert = {};
-            let addItemEdu = {};
+            /* let addItemEdu = {}; */
             let formData = {};
 
             let $form = $(this);
             let url = $form.attr("action");
 
-            $('.education-background .additem').each(function (i, e) {
+            /* $('.education-background .additem').each(function (i, e) {
                 addItemEdu[i] = {
                     " edu_description": $('.edu-description', e).val(),
                     " edu_langFrom": $('.edu-langFrom', e).val(),
                     " edu_langTo": $('.edu-langTo', e).val(),
                 }
-            });
-
-
+            }); */
 
             $('.work-history .additem').each(function (i, e) {
+                alert(i);
                 addItemCert[i] = {
                     "title_cert": $('.cert-title', e).val(),
                     "description_cert": $('.cert-description', e).val(),
                     "cert_langFrom": $('.cert-langFrom', e).val(),
                     "cert_langTo": $('.cert-langTo', e).val(),
                     "cert_year": $('.cert_year', e).val(),
+                    "degree_id": $('.degree_id', e).val(),
                 }
             });
-
 
             formData = {
                 "objective": $('.objective').val(),
@@ -214,11 +203,11 @@ jQuery(function ($) {
                 "standard_rates": $('.standard_rates').val(),
                 "unit_rate": $('.unit_rate').val(),
                 "additional_info": $('.additional_info').val(),
-                "languageSkills": addItemEdu,
+                /* "languageSkills": addItemEdu, */
                 "certificates": addItemCert,
 
             };
-            console.log(formData.certificates);
+            console.log(addItemCert);
 
             $.ajaxSetup({
                 headers: {
@@ -234,6 +223,7 @@ jQuery(function ($) {
                 dataType: 'json',
                 success: function (data) {
                     console.log(data);
+                    console.log("success");
                     console.log("success");
                 },
                 error: function (xhr, error) {

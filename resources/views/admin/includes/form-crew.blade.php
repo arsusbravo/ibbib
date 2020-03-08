@@ -65,6 +65,11 @@
                         </div>
                     </div>
                 </div>
+                @if ($user->crew->certificate && $user->crew->certificate->count())
+                    @foreach ($user->crew->certificate as $cert)
+                        <a href="{{ url('admin/certificate/'.$cert->id) }}" class="btn btn-xs btn-primary waves-effect waves-themed btn-pills">{{ $cert->title }}</a>
+                    @endforeach
+                @endif
             </div>
         </div>
         <div class="panel-content p-2 pb-0 rounded-bottom border-faded border-left-0 border-right-0 border-bottom-0 text-muted">
