@@ -23,7 +23,7 @@ class CreateCertificatesTable extends Migration
             $table->unsignedBigInteger('crew_id');
             $table->unsignedInteger('language_from')->nullable()->default(NULL);
             $table->unsignedInteger('language_to')->nullable()->default(NULL);
-            $table->unsignedInteger('degree_id');
+            $table->unsignedInteger('degree_id')->nullable()->default(NULL);
             $table->string('title', 100)->nullable()->default(NULL);
             $table->string('slug', 100)->nullable()->default(NULL);
             $table->mediumText('description')->nullable()->default(NULL);
@@ -34,7 +34,7 @@ class CreateCertificatesTable extends Migration
             $table->foreign('crew_id')->references('id')->on('crews');
             $table->foreign('language_from')->references('id')->on('languages')->onDelete('set null')->onUpdate('set null');
             $table->foreign('language_to')->references('id')->on('languages')->onDelete('set null')->onUpdate('set null');
-            $table->foreign('degree_id')->references('id')->on('degrees');
+            $table->foreign('degree_id')->references('id')->on('degrees')->onDelete('set null')->onUpdate('set null');
         });
     }
     

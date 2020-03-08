@@ -32,10 +32,10 @@ class Crew extends Model
     /**
      * Get the the skills.
      */
-    public function skills()
+    /* public function skills()
     {
         return $this->belongsToMany('App\Models\Skill', 'crews_skills', 'crew_id', 'skill_id')->withPivot('level');
-    }
+    } */
 
     /**
      * Get the the certificates.

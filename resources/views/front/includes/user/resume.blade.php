@@ -39,34 +39,6 @@
             </div>
         </li><!-- /.qualification -->
     @endif
-    <li class="language-proficiency media">
-        <div class="icon">
-            <i class="fa fa-language" aria-hidden="true"></i>
-        </div>
-        <div class="media-body">
-            <span class="tr-title">{{ __('Translation Proficiency') }}:</span>
-            @if ($user->crew->skills->count())
-                <ul class="tr-list">
-                    @foreach ($user->crew->skills as $skill)
-                        <li>
-                            <span>{{ $skill->languageSkill->translateFrom->name }} - {{ $skill->languageSkill->translateTo->name }}</span>
-                            <ul class="tr-list rating">
-                                @for($s=1; $s<=5; $s++)
-                                    @if ($s <= $skill->pivot->level)
-                                        <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                    @else
-                                        <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
-                                    @endif
-                                @endfor
-                            </ul>
-                        </li>
-                    @endforeach
-                </ul>
-            @else
-                <p class="text-warning">{{ __('You have no translation skill') }}</p>
-            @endif
-        </div>
-    </li>
     @if ($user->crew->additional_info || is_null($user->crew->additional_info) && \Auth::user()->role->slug == 'crew')
         <li class="personal-deatils media">
             <div class="icon">

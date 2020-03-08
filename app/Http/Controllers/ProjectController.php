@@ -56,25 +56,20 @@ class ProjectController extends Controller
         $projects = Project::with('client')->with('skill')->where(function($query) use ($request, $from, $to){
             $query->where('published', 1)->whereNull('deleted')->where('published_at', '<', \Carbon\Carbon::now())->where('deadline', '>', \Carbon\Carbon::today());
 
-            if(\Auth::check() && \Auth::user()->role->slug == 'crew'){
-                $userskills = \Auth::user()->crew->skills()->pluck('skill_id')->toArray();
-                $query->whereIn('skill_id', $userskills);
+            if(\Auth::check() && \Auth::user()->role->slug == 'crew' && \Auth::user()->crew->certificates->count()){
+                /* $userskills = \Auth::user()->crew->skills()->pluck('skill_id')->toArray(); */
+                $userskills=[];
+                foreach(\Auth::user()->crew->certificates as $cert){
+                    $skill = LanguageSkill::where('from', $cert->language_from)->where('to', $cert->language_to)->first();
+                    if($skill){
+                        $userskills[] = $skill->skill->id;
+                    }
+                }
+                if(count($userskills)){
+                    $query->whereIn('skill_id', $userskills);
+                }
+                
             }
-            /* if($from || $to){
-                if($from && $to){
-                    $skills = LanguageSkill::where('from', $from)->where('to', $to);
-                }elseif(!$request->query('from') && $request->query('to')){
-                    $skills = LanguageSkill::where('to', $to);
-                }elseif($request->query('from') && !$request->query('to')){
-                    $skills = LanguageSkill::where('from', $from);
-                }
-                $skills = $skills->get();
-                $skill_ids=[]; 
-                foreach($skills as $skill){
-                    $skill_ids[] = $skill->skill->id;
-                }
-                $query->whereIn('skill_id', $skill_ids);
-            } */
             
             $search = $request->query('search');
             if($search){
@@ -265,7 +260,10 @@ class ProjectController extends Controller
             break;
             case "crew":
                 $blade = 'user.job-details';
-                $userskills = \Auth::user()->crew->skills()->pluck('skill_id')->toArray();
+                foreach(\Auth::user()->crew->certificates as $cert){
+                    $langskill = LanguageSkill::where('from', $cert->language_from)->where('to', $cert->language_to)->first();
+                    $userskills[] = $langskill->skill->id;
+                }
                 $otherprojects = $otherprojects->whereIn('skill_id', $userskills);
                 if($project->bookmarked[0]->pivot->where('crew_id', \Auth::user()->crew->id)->count()){
                     $bookmarked = true;

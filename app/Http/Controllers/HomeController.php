@@ -15,7 +15,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $meta = null;
+        return view('home', [
+            'meta' => $meta,
+            /* 'content' => $content, */
+        ]);
     }
 
     public function about(){

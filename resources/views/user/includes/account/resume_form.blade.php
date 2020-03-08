@@ -93,7 +93,7 @@
                             <textarea class="form-control cert-description"
                                 name="description[]">{{ $item->description }}</textarea>
                             <div class="row">
-                                <div class="col-sm-4 col-md-4">
+                                <div class="col-sm-6">
                                     <label>From</label>
                                     <select name="language_from[]" class="form-control cert-langFrom">
                                         <option value="0">{{ __('Choose a language') }}</option>
@@ -104,7 +104,7 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="col-sm-4 col-md-4">
+                                <div class="col-sm-6">
                                     <label>To</label>
                                     <select name="language_to[]" class="form-control cert-langTo">
                                         <option value="0">{{ __('Choose a language') }}</option>
@@ -115,7 +115,9 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="col-sm-4 col-md-4">
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
                                     <label>{{ __('Year issued')}}</label>
                                     <select name="issued[]" class="form-control cert_year">
                                         @for ($y=\Carbon\Carbon::now()->year;
@@ -124,6 +126,15 @@
                                         <option value="{{ $y }}" {{$item->issued == $y ? 'selected' : '' }}>{!! $y !!}
                                         </option>
                                         @endfor
+                                    </select>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label>{{ __('Degree')}}</label>
+                                    <select name="degree_id[]" class="form-control cert_degree">
+                                        @foreach($degrees as $degree)
+                                            <option value="{{ $degree->id }}" {{$degree->id == $item->degree_id ? 'selected' : '' }}>{!! $degree->title !!}</option>
+                                        @endforeach
+                                        <option value="0">{{ __('Other') }}</option>
                                     </select>
                                 </div>
                             </div>
@@ -140,7 +151,7 @@
                             <label>{{ __('Description') }}</label>
                             <textarea class="form-control cert-description" name="description[]"></textarea>
                             <div class="row">
-                                <div class="col-sm-4 col-md-4">
+                                <div class="col-sm-6">
                                     <label>From</label>
                                     <select name="language_from[]" class="form-control cert-langFrom">
                                         <option value="0">{{ __('Choose a language') }}</option>
@@ -150,7 +161,7 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="col-sm-4 col-md-4">
+                                <div class="col-sm-6">
                                     <label>To</label>
                                     <select name="language_to[]" class="form-control cert-langTo">
                                         <option value="0">{{ __('Choose a language') }}</option>
@@ -160,14 +171,26 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="col-sm-4 col-md-4">
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
                                     <label>{{ __('Year issued')}}</label>
                                     <select name="issued[]" class="form-control cert_year">
                                         @for ($y=\Carbon\Carbon::now()->year;
                                         $y>=\Carbon\Carbon::now()->subYears(50)->year;
                                         $y--)
-                                        <option value="{{ $y }}">{!! $y !!}</option>
+                                        <option value="{{ $y }}">{!! $y !!}
+                                        </option>
                                         @endfor
+                                    </select>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label>{{ __('Degree')}}</label>
+                                    <select name="degree_id[]" class="form-control cert_degree">
+                                        @foreach($degrees as $degree)
+                                            <option value="{{ $degree->id }}">{!! $degree->title !!}</option>
+                                        @endforeach
+                                        <option value="0">{{ __('Other') }}</option>
                                     </select>
                                 </div>
                             </div>

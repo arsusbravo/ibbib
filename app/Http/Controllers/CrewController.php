@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Crew;
 use App\Models\Price;
+use App\Models\Degree;
 use App\Models\Certificate;
 
 class CrewController extends Controller
@@ -27,8 +28,10 @@ class CrewController extends Controller
         $countries = \App\Models\Country::all();
         $userCrew = Crew::find($user->crew->id);
         $selectedCountry = $userCrew->country_id;
+        $degrees = Degree::all();
         return view('user.settings', [
             'user' => $user,
+            'degrees' => $degrees,
             'countries' => $countries,
             'languages' => $languages,
             'selectedCountry' => $selectedCountry
@@ -65,17 +68,18 @@ class CrewController extends Controller
        
       
         if($request->certificates){
-        foreach($request->certificates as $certificate){
-            $Newcertificate = new Certificate;
-            $Newcertificate->title = $certificate['title_cert'];
-            $Newcertificate->crew_id = $updatedCrew->id;
-            $Newcertificate->description = $certificate['description_cert'];
-            $Newcertificate->language_from = $certificate['cert_langFrom'];
-            $Newcertificate->language_to = $certificate['cert_langTo'];
-            $Newcertificate->issued = $certificate['cert_year'];
-            $Newcertificate->save();
+            foreach($request->certificates as $certificate){
+                $Newcertificate = new Certificate;
+                $Newcertificate->title = $certificate['title_cert'];
+                $Newcertificate->crew_id = $updatedCrew->id;
+                $Newcertificate->description = $certificate['description_cert'];
+                $Newcertificate->language_from = $certificate['cert_langFrom'];
+                $Newcertificate->language_to = $certificate['cert_langTo'];
+                $Newcertificate->issued = $certificate['cert_year'];
+                $Newcertificate->degree_id = $certificate['degree_id'];
+                $Newcertificate->save();
+            }
         }
-    }
         if ($updatedCrew->save()) {
             return response()->json($updatedCrew);
         }

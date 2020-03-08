@@ -16,8 +16,8 @@
                             @endif
                         </div>
                         <ul class="tr-list job-meta">
-                            @foreach ($translator->skills as $skill)
-                                <li><span><i class="fa fa-language" aria-hidden="true"></i></span>{!! $skill->languageSkill->translateFrom->name !!} {{ __('to') }} {!! $skill->languageSkill->translateTo->name !!}</li>
+                            @foreach ($translator->certificates as $cert)
+                                <li><span><i class="fa fa-language" aria-hidden="true"></i></span>{!! $cert->transFrom->name !!} {{ __('to') }} {!! $skill->transTo->name !!}</li>
                             @endforeach
                             <li><span><i class="fa fa-money" aria-hidden="true"></i></span>${{ $translator->standard_rates.' /'. $translator->unit_rate }}</li>
                         </ul>

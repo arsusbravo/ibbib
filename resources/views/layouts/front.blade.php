@@ -6,10 +6,10 @@
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta name="author" content="Theme Region">
-      <meta name="description" content="{{ !is_null($meta) && isset($meta['description']) ? $meta['description']: 'Ibbib jobs for translators and agencies' }}">
-      <meta name="keywords" content="{{ !is_null($meta) && isset($meta['keywords']) ? $meta['keywords']: 'jobs, translators, agencies, translation, project' }}">
+      <meta name="description" content="{{ isset($meta) && !is_null($meta) && isset($meta['description']) ? $meta['description']: 'Ibbib jobs for translators and agencies' }}">
+      <meta name="keywords" content="{{ isset($meta) && !is_null($meta) && isset($meta['keywords']) ? $meta['keywords']: 'jobs, translators, agencies, translation, project' }}">
   
-      <title>{{ !is_null($meta) && isset($meta['title']) ? $meta['title']: config('app.name', 'ARSUS manager') }}</title>
+      <title>{{ isset($meta) && !is_null($meta) && isset($meta['title']) ? $meta['title']: config('app.name', 'ARSUS manager') }}</title>
   
          <!-- CSS -->
       <link rel="stylesheet" href="{{ url('themes/frontpage/css/bootstrap.min.css') }}" >
