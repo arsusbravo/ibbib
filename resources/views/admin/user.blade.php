@@ -73,7 +73,7 @@
                         </div>
                     </div>
                     <div class="panel-content p-2 pb-0 rounded-bottom border-faded border-left-0 border-right-0 border-bottom-0 text-muted">
-                        <button type="button" class="btn btn-lg btn-success waves-effect waves-themed">
+                        <button type="submit" class="btn btn-lg btn-success waves-effect waves-themed">
                             <span class="fal fa-save mr-1"></span>
                             {{ __('Save') }}
                         </button>

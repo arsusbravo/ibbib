@@ -93,4 +93,84 @@ class UserController extends Controller
             'apphelper' => new AppHelper,
         ]);
     }
+
+    public function store(Request $request){
+        $helper = new AppHelper;
+        $input = $request->all();
+        $addValidation = [
+            'name' => 'required|max:100',
+            'email' => 'required|email',
+            'confirm_password' => 'same:password',
+        ];
+        $invalid = $helper->isInvalid($input, $addValidation);
+        if($invalid){
+            return redirect()
+                ->back()
+                ->withErrors($invalid)
+                ->withInput();
+        }
+        
+        $user = new User;
+        $user->name = $input['name'];
+        $user->email = $input['email'];
+        $user->active = isset($input['active']) && $input['active'] == 'on' ? 1: null;
+
+        if(isset($input['role_id'])){
+            $role_id = $input['role_id'];
+        }else{
+            $role_id = $input['role'];
+        }
+        $user->role_id = $role_id;
+
+        if($input['password']){
+            $user->password = \Hash::make(trim($input['password']));
+        }else{
+            $user->password = \Hash::make(\Str::random(6));
+        }
+
+        if($user->save()){
+            return redirect()->back()->with('success_msg', 'User is saved');
+        }else{
+            return redirect()->back()->with('error_msg', 'User is NOT saved');
+        }
+    }
+
+    public function update(Request $request, $id){
+        $helper = new AppHelper;
+        $input = $request->all();
+        $addValidation = [
+            'name' => 'required|max:100',
+            'email' => 'required|email',
+            'confirm_password' => 'same:password',
+        ];
+        $invalid = $helper->isInvalid($input, $addValidation);
+        if($invalid){
+            return redirect()
+                ->back()
+                ->withErrors($invalid)
+                ->withInput();
+        }
+        
+        $user = User::find($id);
+        $user->name = $input['name'];
+        $user->email = $input['email'];
+        $user->active = isset($input['active']) && $input['active'] == 'on' ? 1: null;
+
+        if(isset($input['role_id'])){
+            $role_id = $input['role_id'];
+        }else{
+            $role_id = $input['role'];
+        }
+        $user->role_id = $role_id;
+
+        if($input['password']){
+            $user->password = \Hash::make(trim($input['password']));
+        }
+
+        if($user->save()){
+            return redirect()->back()->with('success_msg', $input['name']. ' is updated');
+        }else{
+            return redirect()->back()->with('error_msg', $input['name']. ' is NOT updated');
+        }
+    }
 }
