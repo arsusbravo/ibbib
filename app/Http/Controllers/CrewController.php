@@ -69,7 +69,12 @@ class CrewController extends Controller
       
         if($request->certificates){
             foreach($request->certificates as $certificate){
-                $Newcertificate = new Certificate;
+                if($certificate['id'] == 0){
+                    $Newcertificate = new Certificate;
+                }else {
+                    $Newcertificate = Certificate::find($certificate['id']);
+                }
+              
                 $Newcertificate->title = $certificate['title_cert'];
                 $Newcertificate->crew_id = $updatedCrew->id;
                 $Newcertificate->description = $certificate['description_cert'];

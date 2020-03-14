@@ -101,59 +101,7 @@ jQuery(function ($) {
         $(this).parents('.remove-item').fadeOut();
     });
 
-
-    // -------------------------------------------------------------
-    //  item clone
-    // -------------------------------------------------------------
-
     $(document).ready(function () {
-        let workItems = $(".work-history .additem").length;
-        var regex = /^(.*)(\d)+$/i;
-        var cloneitem = $("#addhistory").length;
-        $('#clone').click(function () {
-            $('#addhistory').clone()
-                .appendTo('.additem-work')
-                .attr("id", "#addhistory" + cloneitem)
-                .find("*").each(function () {
-                    var id = this.id || "";
-                    var match = id.match(regex) || [];
-                    if (match.length == 3) {
-                        this.id = match[1] + (cloneitem);
-                    };
-                });
-            cloneitem++;
-        });
-
-        var cloneitem2 = $("#add-edu").length;
-        $('#edu-clone').click(function () {
-            $('#add-edu').clone()
-                .appendTo('.additem-edu')
-                .attr("id", "#add-edu" + cloneitem2)
-                .find("*").each(function () {
-                    var id = this.id || "";
-                    var match = id.match(regex) || [];
-                    if (match.length == 3) {
-                        this.id = match[1] + (cloneitem2);
-                    };
-                });
-            cloneitem2++;
-        });
-
-        var cloneitem3 = $("#achievement").length;
-        $('#achiev-clone').click(function () {
-            $('#achievement').clone()
-                .appendTo('.additem-achiev')
-                .attr("id", "#achievement" + cloneitem3)
-                .find("*").each(function () {
-                    var id = this.id || "";
-                    var match = id.match(regex) || [];
-                    if (match.length == 3) {
-                        this.id = match[1] + (cloneitem3);
-                    };
-                });
-            cloneitem3++;
-        });
-
 
         $(document).on('click', '.remove', function () {
             $(this).parents(".additem").remove();
@@ -162,29 +110,17 @@ jQuery(function ($) {
 
         $(document).on('click', '.save_profile', function (e) {
             e.preventDefault();
-            /* let list = document.getElementById("certificateList");
-            for (let i = 1; i <= workItems; i++) {
-                list.removeChild(list.childNodes[i]);
-            } */
 
             let addItemCert = {};
-            /* let addItemEdu = {}; */
             let formData = {};
 
             let $form = $(this);
             let url = $form.attr("action");
 
-            /* $('.education-background .additem').each(function (i, e) {
-                addItemEdu[i] = {
-                    " edu_description": $('.edu-description', e).val(),
-                    " edu_langFrom": $('.edu-langFrom', e).val(),
-                    " edu_langTo": $('.edu-langTo', e).val(),
-                }
-            }); */
-
             $('.work-history .additem').each(function (i, e) {
                 alert(i);
                 addItemCert[i] = {
+                    "id": $('.id', e).val(),
                     "title_cert": $('.cert-title', e).val(),
                     "description_cert": $('.cert-description', e).val(),
                     "cert_langFrom": $('.cert-langFrom', e).val(),
@@ -203,7 +139,6 @@ jQuery(function ($) {
                 "standard_rates": $('.standard_rates').val(),
                 "unit_rate": $('.unit_rate').val(),
                 "additional_info": $('.additional_info').val(),
-                /* "languageSkills": addItemEdu, */
                 "certificates": addItemCert,
 
             };
