@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\Degree;
 use App\Models\Country;
+use App\Models\Language;
 use App\Helpers\AppHelper;
 
 class UserController extends Controller
@@ -78,7 +80,9 @@ class UserController extends Controller
     public function edit(Request $request, $id){
         $user = User::find($id);
         $roles = Role::all();
+        $degrees = Degree::all();
         $countries = Country::all();
+        $languages = Language::all();
         if(in_array($user->role->slug, ['master', 'admin', 'worker'])){
             $slug = 'admin';
         }else{
@@ -89,7 +93,9 @@ class UserController extends Controller
             'user' => $user,
             'slug' => $slug,
             'roles' => $roles,
+            'degrees' => $degrees,
             'countries' => $countries,
+            'languages' => $languages,
             'apphelper' => new AppHelper,
         ]);
     }
@@ -129,7 +135,11 @@ class UserController extends Controller
         }
 
         if($user->save()){
-            return redirect()->back()->with('success_msg', 'User is saved');
+            if($user->role->slug == 'crew' || $user->role->slug == 'customer') {
+                return redirect('admin/user/'. $user->id)->with('info_msg', 'User is saved. Now add details.');
+            }else{
+                return redirect()->back()->with('success_msg', 'User is saved');
+            }
         }else{
             return redirect()->back()->with('error_msg', 'User is NOT saved');
         }

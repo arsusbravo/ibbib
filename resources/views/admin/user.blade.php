@@ -22,7 +22,7 @@
     </div>
     <div class="row">
         <div class="col-md-6">
-            <form action="{{ url('user'.($apphelper->queryToURL(\Request::query()))) }}" method="POST">
+            <form action="{{ url('admin/user'.($apphelper->queryToURL(\Request::query()))) }}" method="POST">
                 <div class="panel">
                     <div class="panel-hdr">
                         <h2>
@@ -80,6 +80,9 @@
                     </div>
                 </div>
             </form>
+            @if ($user->role->slug == 'crew')
+                @include('admin.includes.form-certs')
+            @endif
         </div>
         <div class="col-md-6">
             @include('admin.includes.form-'.(in_array($user->role->slug, ['master', 'admin', 'worker']) ? 'admin': $user->role->slug));
